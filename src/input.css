@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Lancelot&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap');
+
+/* Tambahan custom class */
+.icon-circle-outline {
+@apply h-10 w-10 flex items-center justify-center rounded-full border border-white/60;
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+@layer utilities {
+  @keyframes ping-once {
+    0% { transform: scale(1); opacity:1; }
+    50% { transform: scale(1.25); opacity:.7; }
+    100% { transform: scale(1); opacity:1; }
+  }
+  .animate-ping-once {
+    animation: ping-once 0.6s ease-out;
+  }
+}
+
+@font-face {
+  font-family:"Medium";
+  src: local("Microgramma-D-Extended-Medium"),
+  url('/assets/fonts/Microgramma-D-Extended-Medium.ttf') format("truetype");
+}
+
+@theme {
+  --font-montserrat: "Montserrat", sans-serif; 
+}

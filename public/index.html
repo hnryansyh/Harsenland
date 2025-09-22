@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harsen Land</title>
+  <link rel="stylesheet" href="../dist/output.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap" rel="stylesheet">
+
+
+  <!-- Efek Blur Hero Section -->
+  <!-- <style>
+    /* Hero Animations */
+    @keyframes heroZoomBlur {
+      0% { transform: scale(1.06); filter: blur(8px); opacity: 0; }
+      100% { transform: scale(1); filter: blur(0); opacity: 1; }
+    }
+    .animate-heroZoomBlur { animation: heroZoomBlur 1.1s ease-out forwards; }
+
+    @keyframes textReveal {
+      0% { opacity: 0; letter-spacing: .35em; filter: blur(4px); transform: translateY(8px); }
+      100% { opacity: 1; letter-spacing: .20em; filter: blur(0); transform: translateY(0); }
+    }
+    .animate-textReveal { animation: textReveal 0.9s ease-out forwards; }
+  </style> -->
+
+  <!-- Efek gelombang lingkaran Request -->
+  <style>
+    /* Radar waves */
+    @keyframes radarPulse {
+      0%   { transform: scale(1);   opacity: .35; }
+      70%  { transform: scale(1.5); opacity: 0;   }
+      100% { transform: scale(2.0); opacity: 0;   }
+    }
+
+    /* wrapper yg mengaktifkan gelombang */
+    .radar-active .radar-wave {
+      animation: radarPulse 1.8s ease-out infinite;
+    }
+
+    /* gelombang dasar */
+    .radar-wave {
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      background: rgba(0,0,0,.10); /* sesuai tema abu2 */
+      pointer-events: none;
+      filter: blur(.3px);
+      opacity: 0;
+    }
+
+    /* hiasan: 2 gelombang dg delay biar beruntun */
+    .radar-wave.delay-1 { animation-delay: .6s; }
+    .radar-wave.delay-2 { animation-delay: 1.2s; }
+
+    /* hormati preferensi OS */
+    @media (prefers-reduced-motion: reduce) {
+      .radar-wave { animation: none !important; }
+    }
+  </style>
+  
+</head>
+<body class="bg-brand-navy text-white antialiased font-montserrat">
+
+  <!-- NAVBAR -->
+  <header class="fixed inset-x-0 top-0 z-50">
+    <!-- Gradient (awal) -->
+    <div id="navBg" class="absolute inset-x-0 top-0 h-[76px] lg:h-[88px] bg-gradient-to-b from-[#21225F]/100 via-[#21225F]/60 to-transparent opacity-0 transition-all duration-500"></div>
+    <!-- Solid (scroll) -->
+    <div id="navSolid" class="absolute inset-x-0 top-0 h-[76px] lg:h-[88px] bg-[#21225F] opacity-0 -translate-y-2 transition-all duration-500 pointer-events-none"></div>
+
+    <nav class="relative mx-auto max-w-[1400px] px-4 lg:px-6 flex items-center justify-between h-[76px] lg:h-[88px]">
+      <!-- Desktop kiri -->
+      <div class="hidden lg:flex items-center gap-4">
+        <button aria-label="Menu" id="openSidebar" class="p-2">
+          <img src="/assets/icon/hamburger.svg" class="w-8" alt="">
+        </button>
+        <a href="#" class="rounded-full border border-white px-7 py-2 text-[0.7rem] hover:bg-white/10 tracking-widest transition">VIRTUAL TOUR</a>
+      </div>
+      <!-- Logo -->
+      <a id="navlogo" href="#" class="hidden lg:inline-block">
+        <img src="/assets/Logo_Harsenland_White.png" alt="Harsen Land" class="h-8" />
+      </a>
+      <!-- Desktop kanan -->
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="tel:+6287776533968" class="text-sm hover:opacity-80 tracking-widest transition">+6287776533968</a>
+        <a href="#contact" class="text-sm hover:opacity-80 tracking-widest transition">CONTACT US</a>
+      </div>
+
+      <!-- Mobile -->
+      <div class="flex w-full items-center justify-between lg:hidden">
+        <button aria-label="Menu" id="openSidebarMobile" class="icon-circle-outline">
+          <img src="/assets/icon/hamburger.svg" class="w-4" alt="">
+        </button>
+        <a href="#">
+          <img src="/assets/Logo_Harsenland_White.png" alt="Harsen Land" class="h-7" />
+        </a>
+        <a href="https://wa.me/6287776533968" target="_blank" rel="noopener" class="icon-circle-outline" aria-label="WhatsApp">
+          <img src="/assets/icon/call_1860152.svg" class="text-white w-5" alt="">
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- SIDEBAR -->
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-500 z-40"></div>
+  <aside id="sidebar" class="fixed px-32 flex flex-col justify-between py-10 inset-y-0 left-0 w-full lg:w-2/3 bg-[#21225F] text-white transform -translate-x-full transition-transform duration-500 z-50">
+    <div class="flex justify-between items-center">
+      <img src="/assets/Logo_Harsenland_White.png" alt="Harsen Land" class="h-10" />
+      <button id="closeSidebar" aria-label="Close" class="">
+        <svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+    <nav class="space-y-8 text-5xl uppercase tracking-widest font-primaryMedium">
+      <a href="#home" class="block hover:opacity-80">Home</a>
+      <a href="#about" class="block hover:opacity-80">About Us</a>
+      <a href="#residential" class="block hover:opacity-80">Residential</a>
+      <a href="#facilities" class="block hover:opacity-80">Facilities</a>
+      <a href="#virtual" class="block hover:opacity-80">Virtual Tour</a>
+      <a href="#developer" class="block hover:opacity-80">Developer</a>
+    </nav>
+    <div class="flex flex-row items-end justify-between">
+      <div class="space-y-1 text-sm tracking-wider">
+        <p>CONSTRUCTION PROGRESS</p>
+        <p>TEAM</p>
+        <p>DOCUMENTATION</p>
+        <p>NEWS AND OFFERS</p>
+        <p>CONTACT US</p>
+      </div>
+      <div class="flex flex-row gap-3 text-2xl align-middle items-center">
+        <i class="fa-brands fa-whatsapp"></i>
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-instagram"></i>
+      </div>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section id="hero" class="fixed inset-0 -z-10 overflow-hidden">
+    <div id="heroFx" class="absolute inset-0 will-change-transform will-change-filter">
+      <img src="/assets/3dmodeling-01.jpg" alt="Residences" class="absolute inset-0 h-full w-full object-cover animate-heroZoomBlur" />
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/75 via-transparent to-transparent"></div>
+      <div id="whiteOverlay" class="absolute inset-0 bg-white animate-overlayFade pointer-events-none"></div>
+      <div class="relative z-10 h-full">
+        <div class="mx-auto max-w-[1400px] px-4 lg:px-6 h-full flex items-end justify-between">
+          <h1 id="heroHeadline" class="font-primaryMedium mb-10 lg:mb-16 max-w-3xl text-[18px] md:text-[20px] lg:text-[30px] uppercase tracking-[0.2em] text-center lg:text-left animate-textReveal">
+            Luxury family residences with a well-developed
+          </h1>
+          <a href="">
+            <img src="/assets/icon/whatsapp.svg" class="mb-10 lg:mb-16 animate-textReveal" alt="">
+          </a>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="z-30">
+    <div class="h-screen"></div>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="relative bg-white text-brand-navy py-16">
+      <div class="mx-auto px-4 text-center mb-12">
+        <p class="text-sm md:text-base mb-2"></p>
+        <h2 class="text-4xl md:text-xl font-medium font-primaryMedium tracking-widest">
+          Located in one of Miami Beach’s most desirable residential neighborhoods, <br>42 Pine offers a limited collection of fifty well-appointed residences
+          <br>with exceptional services and amenities.
+        </h2>
+      </div>
+
+      <!-- Carousel -->
+      <div class="relative mx-auto overflow-hidden">
+        <div id="cardSlider" class="flex justify-between px-10 align-middle items-center transition-transform duration-700 ease-in-out">
+          <!-- Cards -->
+          <div class="">
+            <a href="">
+            <div class="relative">
+              <img src="/assets/matt-reames-g_qTxJEj1AY-unsplash.jpg" class="h-[37rem] w-[37rem] object-cover" alt="Strategic">
+              <span class="absolute inset-0 bg-black/40 hover:bg-black/60 transition duration-500 flex items-center justify-center text-white text-lg font-primaryMedium tracking-widest lg:text-3xl">About</span>
+            </div>
+            </a>
+          </div>
+          <div class="">
+            <a href="">
+            <div class="relative">
+              <img src="/assets/kam-idris-_HqHX3LBN18-unsplash.jpg" class="h-[37rem] w-[37rem] object-cover" alt="Residential">
+              <span class="absolute inset-0 bg-black/40 hover:bg-black/60 transition duration-500 flex items-center justify-center text-white text-lg font-primaryMedium tracking-widest lg:text-3xl">Residential</span>
+            </div>
+            </a>
+          </div>
+          <div class="">
+            <a href="">
+            <div class="relative">
+              <img src="/assets/richard-laursen-b0E6MB3i8rs-unsplash.jpg" class="h-[37rem] w-[37rem] object-cover" alt="Facilities">
+              <span class="absolute inset-0 bg-black/40 hover:bg-black/60 transition duration-500 flex items-center justify-center text-white text-lg font-primaryMedium tracking-widest lg:text-3xl">Facilities</span>
+            </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Prev / Next -->
+        <!-- <button id="prevBtn" class="absolute top-1/2 -translate-y-1/2 left-2 bg-black/40 text-white p-2 rounded-full">&#10094;</button>
+        <button id="nextBtn" class="absolute top-1/2 -translate-y-1/2 right-2 bg-black/40 text-white p-2 rounded-full">&#10095;</button> -->
+      </div>
+    </section>
+  </main>
+
+  <!-- QUICK FACTS -->
+  <section id="quick-facts" class="relative py-14 lg:py-20 text-white overflow-hidden z-30">
+      <!-- Parallax background -->
+      <div id="factsBg" class="absolute inset-0 -z-10 pointer-events-none">
+          <!-- ganti /images/bg-facts.jpg sesuai asetmu -->
+          <img src="/assets/image/1.png" alt="" class="h-full w-full object-cover saturate-50">
+          <!-- gelapkan sedikit agar teks kontras -->
+          <div class="absolute inset-0 bg-black/60"></div>
+      </div>
+
+      <div class="relative mx-auto max-w-6xl px-4">
+          <!-- Title -->
+          <h3 class="reveal font-primaryMedium tracking-widest text-center text-xl md:text-2xl lg:text-3xl font-medium mb-8 opacity-0 translate-y-6 transition-all duration-700">
+          Quick Facts About Harsen Land
+          </h3>
+
+          <!-- Facts row -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-8 items-start mb-10 lg:mb-14 font-primaryMedium tracking-widest">
+
+            <!-- FACT -->
+            <div class="reveal fact opacity-0 translate-y-6 transition-all duration-700 delay-100 flex flex-col items-center text-center"
+                data-to="127">
+                <div class="text-5xl lg:text-6xl leading-none"><span class="count">0</span></div>
+                <div class="font-montserrat mt-2 text-xs lg:text-lg tracking-wide opacity-80">Unit Rumah</div>
+            </div>
+
+            <div class="reveal fact opacity-0 translate-y-6 transition-all duration-700 delay-200 flex flex-col items-center text-center"
+                data-to="2">
+                <div class="text-5xl lg:text-6xl leading-none"><span class="count">0</span></div>
+                <div class="font-montserrat mt-2 text-xs lg:text-lg tracking-wide opacity-80">Tipe Hunian</div>
+            </div>
+
+            <div class="reveal fact opacity-0 translate-y-6 transition-all duration-700 delay-300 flex flex-col items-center text-center"
+                data-to="20" data-suffix="%">
+                <div class="text-5xl lg:text-6xl leading-none"><span class="count">0</span><span class="suffix"></span></div>
+                <div class="font-montserrat mt-2 text-xs lg:text-lg tracking-wide opacity-80">Area Komersial</div>
+            </div>
+
+            <div class="reveal fact opacity-0 translate-y-6 transition-all duration-700 delay-400 flex flex-col items-center text-center"
+                data-to="5">
+                <div class="text-5xl lg:text-6xl leading-none"><span class="count">0</span></div>
+                <div class="font-montserrat mt-2 text-xs lg:text-lg tracking-wide opacity-80">Menit Akses Tol</div>
+            </div>
+
+            <div class="reveal fact opacity-0 translate-y-6 transition-all duration-700 delay-500 flex flex-col items-center text-center sm:col-span-2 sm:justify-self-center lg:col-span-1"
+                data-to="10">
+                <div class="text-5xl lg:text-6xl leading-none"><span class="count">0</span></div>
+                <div class="font-montserrat mt-2 text-xs lg:text-lg tracking-wide opacity-80">Menit Pusat Kota</div>
+            </div>
+
+          </div>
+
+          <!-- 2 photo cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 items-start mb-6 lg:mb-10">
+          <!-- Card A -->
+          <figure class="reveal group relative opacity-0 translate-y-6 transition-all duration-700 delay-200">
+              <img src="/assets/image/3.png" alt="Tipe A"
+                  class="w-full aspect-[4/3] object-cover transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl" />
+              <a href="">
+                <button class="absolute right-3 bottom-3 h-14 w-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+                      aria-label="Lihat lebih dekat"></a>
+              <!-- ganti dengan svg-mu -->
+              <img src="/assets/icon/zoom.svg" class="w-7 h-7" alt="">
+              </button>
+          </figure>
+
+          <!-- Card B -->
+          <figure class="reveal group relative opacity-0 translate-y-6 transition-all duration-700 delay-300">
+              <img src="/assets/image/4.png" alt="Tipe B"
+                  class="w-full aspect-[4/3] object-cover transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl" />
+              <a href="">
+                <button class="absolute right-3 bottom-3 h-14 w-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
+                      aria-label="Lihat lebih dekat"></a>
+              <img src="/assets/icon/zoom.svg" class="w-7 h-7" alt="">
+              </button>
+          </figure>
+          </div>
+
+          <!-- labels under photos -->
+          <div class="reveal font-primaryMedium tracking-widest grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 text-center text-lg lg:text-3xl mb-10 opacity-0 translate-y-6 transition-all duration-700 delay-300">
+            <div>TIPE A</div>
+            <div>TIPE B</div>
+          </div>
+
+          <!-- paragraph -->
+          <div class="reveal mx-auto text-center text-sm md:text-lg opacity-100 translate-y-6 transition-all duration-700 delay-300">
+          Located in one of Miami Beach’s most desirable residential neighborhoods,
+          42 Pine offers a limited collection of fifty well-appointed residences
+          with exceptional services and amenities.
+          </div>
+      </div>
+  </section>
+
+  <!-- PRIVATE SPACE -->
+  <section id="private-space" class="relative py-12 lg:py-16 bg-white text-brand-navy select-none z-30">
+    <!-- Title + progress indicator -->
+    <div class="flex items-center justify-between px-4 lg:px-6 mb-6">
+      <h3 class="text-lg md:text-xl lg:text-2xl font-primaryMedium tracking-widest">Private Space</h3>
+
+      <!-- progress bar -->
+      <div class="relative w-40 md:w-56 h-1.5 bg-gray-200 rounded">
+        <div id="ps-thumb" class="absolute left-0 top-0 h-full bg-black rounded transition-[width,transform] duration-150"></div>
+      </div>
+    </div>
+
+    <!-- Horizontal scroller (flush edges) -->
+    <div id="privateScroll"
+        class="flex overflow-x-auto scrollbar-hide cursor-grab w-full"
+        style="scrollbar-width:none; -ms-overflow-style:none;">
+      <!-- padding “spacer” di kiri biar benar-benar flush -->
+      <div class="shrink-0 w-0"></div>
+
+      <!-- Card: gunakan vw agar di desktop terlihat ~3.5 kartu (card #4 ngintip) -->
+      <!-- Mobile: ~85vw; Tablet: ~48vw; Desktop: ~30vw -->
+      <!-- Tambah/kurangi kartu tinggal duplikasi blok .ps-card -->
+      <article class="ps-card flex items-center align-middle justify-center flex-col shrink-0 w-[85vw] sm:w-[48vw] lg:w-[25vw] h-[35vw] border border-gray-200 bg-white">
+        <div class="w-fit">
+          <img src="/assets/private area/large_Rectangle_39225_1_01b30d14a5_921387b7c5.webp" alt="Clubhouse" class="h-[30vw] aspect-[3/4] object-cover">
+          <div class="w-full pt-3 flex justify-between items-center text-sm">
+            <span>Clubhouse</span>
+            <button class="h-7 w-7 flex items-center justify-center border rounded-full">+</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="ps-card flex items-center align-middle justify-center flex-col shrink-0 w-[85vw] sm:w-[48vw] lg:w-[25vw] h-[35vw] border border-gray-200 bg-white">
+        <div class="w-fit">
+          <img src="/assets/private area/large_Rectangle_39224_294a05c6ef_be9543598b.webp" alt="Clubhouse" class="h-[30vw] aspect-[3/4] object-cover">
+          <div class="w-full pt-3 flex justify-between items-center text-sm">
+            <span>Outdoor Gym</span>
+            <button class="h-7 w-7 flex items-center justify-center border rounded-full">+</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="ps-card flex items-center align-middle justify-center flex-col shrink-0 w-[85vw] sm:w-[48vw] lg:w-[25vw] h-[35vw] border border-gray-200 bg-white">
+        <div class="w-fit">
+          <img src="/assets/private area/large_Rectangle_39225_9fbab2d4c6_2ffcb11cc3.webp" alt="Clubhouse" class="h-[30vw] aspect-[3/4] object-cover">
+          <div class="w-full pt-3 flex justify-between items-center text-sm">
+            <span>Playground</span>
+            <button class="h-7 w-7 flex items-center justify-center border rounded-full">+</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="ps-card flex items-center align-middle justify-center flex-col shrink-0 w-[85vw] sm:w-[48vw] lg:w-[25vw] h-[35vw] border border-gray-200 bg-white">
+        <div class="w-fit">
+          <img src="/assets/image/6.png" alt="Clubhouse" class="h-[30vw] aspect-[3/4] object-cover">
+          <div class="w-full pt-3 flex justify-between items-center text-sm">
+            <span>Outdoor Pool</span>
+            <button class="h-7 w-7 flex items-center justify-center border rounded-full">+</button>
+          </div>
+        </div>
+      </article>
+
+            <article class="ps-card flex items-center align-middle justify-center flex-col shrink-0 w-[85vw] sm:w-[48vw] lg:w-[25vw] h-[35vw] border border-gray-200 bg-white">
+        <div class="w-fit">
+          <img src="/assets/private area/large_Rectangle_39228_789041c103_d85fc44338.webp" alt="Clubhouse" class="h-[30vw] aspect-[3/4] object-cover">
+          <div class="w-full pt-3 flex justify-between items-center text-sm">
+            <span>Coworking Area</span>
+            <button class="h-7 w-7 flex items-center justify-center border rounded-full">+</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- spacer kanan supaya card terakhir tidak “nempel” total di tepi -->
+      <div class="shrink-0 "></div>
+    </div>
+  </section>
+
+  <!-- FUTURE DEVELOPMENT -->
+  <section id="future-dev" class="relative h-[90vh] overflow-hidden text-white z-40">
+    <!-- Parallax background -->
+    <div id="fdBg" class="absolute inset-0 -z-10">
+      <!-- ganti src sesuai gambar kamu -->
+      <img src="/assets/image/Untitled-1-06.jpg" alt="" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-black/25"></div>
+    </div>
+
+    <!-- Bottom center text -->
+    <div class=" h-full inset-x-0 align-middle items-center flex justify-center">
+      <h3 class="text-xl md:text-3xl lg:text-6xl tracking-widest font-primaryMedium">
+        Future Development
+      </h3>
+    </div>
+  </section>
+
+  <!-- REQUEST / CONTACT FORM -->
+  <section id="request" class="bg-[#F0EEEE] text-brand-navy py-14 lg:py-20 z-40 h-[90vh]  flex flex-col justify-center items-center">
+    <div class=" px-6 text-center">
+      <p class="text-base tracking-wide uppercase font-montserrat font-medium text-[#727272] ">
+        Our specialist will contact you as soon as possible.
+      </p>
+
+      <h3 class="mt-3 text-[28px] md:text-[36px] lg:text-6xl leading-tight tracking-[0.12em] uppercase font-primaryMedium">
+        <span class="block">To Your</span>
+        <span class="block">Future Home</span>
+      </h3>
+
+      <form id="requestForm" class="mt-10 space-y-8">
+        <!-- Name -->
+        <label class="block text-left">
+          <span class="block text-[11px] tracking-[0.3em] uppercase text-[#727272]">Your Name</span>
+          <input
+            id="rqName"
+            type="text"
+            name="name"
+            autocomplete="name"
+            required
+            class="mt-2 w-full bg-transparent border-0 border-b border-black/40 focus:border-black focus:ring-0 text-[15px] py-2"
+          />
+        </label>
+
+        <!-- Phone -->
+        <label class="block text-left">
+          <span class="block text-[11px] tracking-[0.3em] uppercase text-[#727272]">Phone</span>
+          <input
+            id="rqPhone"
+            type="tel"
+            name="phone"
+            inputmode="tel"
+            autocomplete="tel"
+            required
+            class="mt-2 w-full bg-transparent border-0 border-b border-black/40 focus:border-black focus:ring-0 text-[15px] py-2"
+          />
+        </label>
+
+        <div class="pt-4">
+          <div id="rqPulse" class="relative mx-auto h-40 w-40">
+            <!-- waves -->
+            <span class="radar-wave"></span>
+            <span class="radar-wave delay-1"></span>
+            <span class="radar-wave delay-2"></span>
+
+            <!-- tombol -->
+            <button
+              id="rqSubmit"
+              type="submit"
+              class="absolute inset-0 flex items-center justify-center rounded-full bg-black/15 text-base font-montserrat font-semibold tracking-wide">
+              REQUEST
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+      <p class="mt-6 text-sm leading-snug text-[#ACACAC]">
+        By sending your request, you're agreeing to our
+        <a href="/privacy-policy" class="underline">privacy policy</a>.<br>
+        We promise to keep your personal information safe and secure.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-brand-navy text-white z-40 h-[60vh]">
+    <div class="mx-auto max-w-[1280px] px-5 lg:px-8 py-8 lg:py-14">
+      <!-- Top actions -->
+      <div class="flex items-center justify-between gap-4">
+        <a href="/brochure.pdf" target="_blank" class="inline-flex items-center gap-3 text-sm hover:opacity-80">
+          <span class="inline-grid place-items-center h-7 w-7 rounded-full border border-white/50 text-[11px]">PDF</span>
+          <span>Download Brochure</span>
+        </a>
+
+        <button id="btnBackTop" class="inline-flex items-center gap-3 text-sm hover:opacity-80">
+          <span class="hidden sm:inline">Back to Homepage</span>
+          <span class="inline-grid place-items-center h-7 w-7 rounded-full border border-white/50">
+            <!-- up arrow -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 19V5M5 12l7-7 7 7"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <!-- divider -->
+      <hr class="mt-4 border-white/20">
+
+      <!-- Center block -->
+      <div class="text-center py-10 lg:py-14">
+        <!-- Logo -->
+        <div class="flex items-center justify-center">
+          <img src="/assets/Logo_Harsenland_White.png" alt="Harsen Land" class="h-10 md:h-12">
+        </div>
+
+        <!-- Phone -->
+        <a href="tel:+6287776533968"
+          class="mt-6 block text-[28px] sm:text-[36px] lg:text-[48px] tracking-[0.14em] leading-tight hover:opacity-90 font-primaryMedium">
+          +62 8777 6353 968
+        </a>
+
+        <p class="mt-3 text-[11px] tracking-[0.35em] uppercase text-white/70">
+          Sales Office Harsen Land
+        </p>
+
+        <div class="mt-6 text-[12px] tracking-[0.25em] uppercase text-white/80 space-y-1">
+          <p>Sentul, Bogor</p>
+          <p>Jawa Barat, Indonesia</p>
+        </div>
+      </div>
+
+      <!-- Bottom row -->
+      <div class="font-montserrat font-light tracking-wider text-xs flex flex-row justify-between">
+        <div class="flex flex-col  ">
+          <p>2025 © Harsen Land</p>
+          <p class="font-bold">Documentation</p>
+        </div>
+        <div class="flex flex-row gap-2">
+          <a href="https://www.instagram.com/nayaka.construction/" class="flex flex-row gap-2">
+          <img src="/assets/logo/Logo_Nayaka_Putih-05.png" class="h-7" alt="">
+          <div class="flex flex-col">
+            <p>NAYAKA</p>
+            <p>CONSTRUCTION</p>
+          </div>
+          </a>
+        </div>
+        <div class="">
+          <a href="" class="flex flex-row gap-2">
+          <img src="/assets/logo/Aether Logo_AetherWorks_Logogram_White.png" class="h-7" alt="">
+          <div class="flex flex-col">
+            <p>Website by</p>
+            <p class="font-bold">Aetherworks</p>
+          </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Back to top (smooth) -->
+  <script>
+    document.getElementById('btnBackTop')?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+  <!-- SCRIPT -->
+  <script>
+      // NAVBAR BG SWITCH
+      window.addEventListener('scroll', () => {
+      const navBg = document.getElementById('navBg');
+      const navSolid = document.getElementById('navSolid');
+      const navlogo = document.getElementById('navlogo');
+      const y = window.scrollY || document.documentElement.scrollTop;
+      if (y > 60) {
+          navBg.classList.add('opacity-0','-translate-y-4');
+          navSolid.classList.remove('opacity-0','-translate-y-2');
+          navSolid.classList.add('opacity-100','translate-y-0');
+      } else {
+          navBg.classList.remove('opacity-0','-translate-y-4');
+          navSolid.classList.add('opacity-0','-translate-y-2');
+          navSolid.classList.remove('opacity-100','translate-y-0');
+      }
+      });
+
+      // HERO BLUR SCROLL
+      // const heroFx = document.getElementById('heroFx');
+      // const clamp = (v,min,max)=>Math.max(min,Math.min(max,v));
+      // const applyHeroBlur = () => {
+      // const vh = window.innerHeight||1;
+      // const y = window.scrollY||document.documentElement.scrollTop||0;
+      // const t = clamp(y/vh,0,1);
+      // const maxBlur = 8;
+      // heroFx.style.filter = `blur(${(maxBlur*t).toFixed(2)}px)`;
+      // };
+      // window.addEventListener('scroll', applyHeroBlur, {passive:true});
+      // window.addEventListener('resize', applyHeroBlur);
+      // applyHeroBlur();
+
+      // SIDEBAR
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      const openBtns = [document.getElementById('openSidebar'), document.getElementById('openSidebarMobile')];
+      const closeBtn = document.getElementById('closeSidebar');
+      function openSidebar() {
+      sidebar.classList.remove('-translate-x-full');
+      overlay.classList.remove('opacity-0','pointer-events-none');
+      overlay.classList.add('opacity-100');
+      }
+      function closeSidebar() {
+      sidebar.classList.add('-translate-x-full');
+      overlay.classList.add('opacity-0','pointer-events-none');
+      overlay.classList.remove('opacity-100');
+      }
+      openBtns.forEach(btn => btn?.addEventListener('click', openSidebar));
+      closeBtn.addEventListener('click', closeSidebar);
+      overlay.addEventListener('click', closeSidebar);
+
+      // CAROUSEL INFINITE LOOP
+      // const track = document.getElementById('cardSlider');
+      // let items = Array.from(track.querySelectorAll('.carousel-item'));
+      // const total = items.length;
+      // const firstClone = items[0].cloneNode(true);
+      // const lastClone = items[items.length-1].cloneNode(true);
+      // firstClone.dataset.clone = 'first';
+      // lastClone.dataset.clone = 'last';
+      // track.appendChild(firstClone);
+      // track.insertBefore(lastClone, items[0]);
+
+      // let index = 1;
+      // let auto;
+      // const cardWidth = () => track.querySelector('.carousel-item').offsetWidth;
+
+      // function go(to, animate=true) {
+      // index = to;
+      // track.style.transition = animate ? 'transform 700ms ease-in-out' : 'none';
+      // track.style.transform = `translateX(-${cardWidth()*index}px)`;
+      // }
+      // function next(){ go(index+1,true); }
+      // function prev(){ go(index-1,true); }
+
+      // track.addEventListener('transitionend',(e)=>{
+      // if(e.propertyName!=='transform') return;
+      // const current = track.children[index];
+      // if(current?.dataset.clone==='first'){ go(1,false); }
+      // if(current?.dataset.clone==='last'){ go(total,false); }
+      // });
+
+      // function startAuto(){ auto=setInterval(next,3000); }
+      // function stopAuto(){ clearInterval(auto); }
+      // document.getElementById('nextBtn').addEventListener('click',()=>{next();stopAuto();startAuto();});
+      // document.getElementById('prevBtn').addEventListener('click',()=>{prev();stopAuto();startAuto();});
+      // window.addEventListener('resize',()=>go(index,false));
+      // window.addEventListener('load',()=>go(index,false));
+
+      go(index,false);
+      startAuto();
+  </script>
+
+  <!-- Count-up, Reveal on-scroll, Parallax background -->
+  <script>
+  // ===== Reveal on scroll (fade-in + translate) =====
+  const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+      if (e.isIntersecting) {
+          e.target.classList.remove('opacity-0','translate-y-6');
+          e.target.classList.add('opacity-100','translate-y-0');
+          io.unobserve(e.target);
+      }
+      });
+  }, { root: null, threshold: 0.2 });
+
+  document.querySelectorAll('#quick-facts .reveal').forEach(el => io.observe(el));
+
+  // ===== Count-up numbers when visible =====
+  function animateCount(el, to, duration = 1200) {
+      const start = performance.now();
+      function frame(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const val = Math.floor(to * (t < 1 ? (1 - Math.pow(1 - t, 3)) : 1)); // easeOutCubic
+      el.textContent = val.toLocaleString('en-US');
+      if (t < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+  }
+
+  const factsObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+      if (e.isIntersecting) {
+          const box = e.target;
+          const to = parseInt(box.dataset.to, 10) || 0;
+          const suffix = (box.dataset.suffix || '').trim();
+          const num = box.querySelector('.count');
+          const suf = box.querySelector('.suffix');
+          if (suf && suffix) suf.textContent = suffix;
+          animateCount(num, to, 1200);
+          factsObserver.unobserve(box);
+      }
+      });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('#quick-facts .fact').forEach(el => factsObserver.observe(el));
+
+  // ===== Parallax background for the section =====
+  (function setupFactsParallax() {
+      const section = document.getElementById('quick-facts');
+      const bg = document.getElementById('factsBg');
+      let ticking = false;
+
+      function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+          const rect = section.getBoundingClientRect();
+          // progress 0..1 saat section terlihat
+          const vh = window.innerHeight || 1;
+          const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
+          const t = visible / Math.min(vh, rect.height || vh);
+          // parallax: gerakkan gambar sedikit (20px) sesuai posisi section
+          const offset = -rect.top * 0.5; // 0.2 = kecepatan parallax
+          bg.style.transform = `translateY(${offset}px)`;
+          ticking = false;
+      });
+      }
+
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+  })();
+  </script>
+
+  <!-- cursor grab, drag state, indikator mengikuti scroll -->
+  <script>
+      // PRIVATE SPACE: drag-to-scroll + wheel horizontal + indicator
+      (() => {
+      const scroller = document.getElementById('privateScroll');
+      const thumb = document.getElementById('ps-thumb');
+
+      // ---- drag to scroll (desktop)
+      let isDown = false, startX = 0, startLeft = 0;
+
+      scroller.addEventListener('mousedown', (e) => {
+          isDown = true;
+          startX = e.clientX;
+          startLeft = scroller.scrollLeft;
+          scroller.classList.remove('cursor-grab');
+          scroller.classList.add('cursor-grabbing');
+      }, { passive: true });
+
+      window.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
+          e.preventDefault(); // penting agar drag terasa halus
+          const dx = e.clientX - startX;
+          scroller.scrollLeft = startLeft - dx;
+      }, { passive: false });
+
+      window.addEventListener('mouseup', () => {
+          if (!isDown) return;
+          isDown = false;
+          scroller.classList.remove('cursor-grabbing');
+          scroller.classList.add('cursor-grab');
+      }, { passive: true });
+
+      scroller.addEventListener('mouseenter', () => scroller.classList.add('cursor-grab'));
+
+    // ---- map wheel vertikal -> scroll horizontal (mouse wheel)
+    scroller.addEventListener('wheel', (e) => {
+      // jika input utamanya vertikal
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        const atStart = scroller.scrollLeft <= 0;
+        const atEnd = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth;
+
+        // kalau masih bisa geser horizontal, tahan event
+        if (!(atStart && e.deltaY < 0) && !(atEnd && e.deltaY > 0)) {
+          scroller.scrollLeft += e.deltaY;
+          e.preventDefault();
+        }
+        // kalau sudah mentok kiri dan mau geser kiri, atau mentok kanan mau geser kanan → biarkan event jalan vertikal
+      }
+    }, { passive: false });
+
+
+      // ---- progress indicator follow
+      function updateThumb() {
+          const maxScroll = scroller.scrollWidth - scroller.clientWidth;
+          if (maxScroll <= 0) {
+          thumb.style.width = '100%';
+          thumb.style.transform = 'translateX(0)';
+          return;
+          }
+          const ratio = scroller.clientWidth / scroller.scrollWidth;   // bagian terlihat
+          const pos   = scroller.scrollLeft / maxScroll;               // 0..1
+          const trackW = thumb.parentElement.clientWidth;
+          const thumbW = Math.max(24, Math.round(trackW * ratio));     // lebar minimal
+          const maxX   = trackW - thumbW;
+          const x      = Math.round(maxX * pos);
+          thumb.style.width = `${thumbW}px`;
+          thumb.style.transform = `translateX(${x}px)`;
+      }
+
+      scroller.addEventListener('scroll', updateThumb, { passive: true });
+      window.addEventListener('resize', updateThumb);
+      window.addEventListener('load', updateThumb);
+      updateThumb();
+      })();
+  </script>
+
+  <!-- Parallax for Future Development -->
+  <!-- <script>
+    // Parallax for Future Development
+    (() => {
+      const sec = document.getElementById('future-dev');
+      const bg  = document.getElementById('fdBg');
+      let ticking = false;
+
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const rect = sec.getBoundingClientRect();
+          // geser lembut: semakin naik, gambar bergerak lebih lambat
+          const offset = rect.top * -0.18; // atur intensitas 0.1–0.3
+          bg.style.transform = `translateY(${offset}px)`;
+          ticking = false;
+        });
+      }
+
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+    })();
+  </script> -->
+
+  <!-- drag-to-scroll & wheel horizontal -->
+  <script>
+    // LOCATION: horizontal drag/wheel scroll
+    (() => {
+      const scroller = document.getElementById('locCards');
+
+      let isDown = false, startX = 0, startLeft = 0;
+
+      scroller.addEventListener('mouseenter', () => scroller.classList.add('cursor-grab'));
+
+      scroller.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.clientX;
+        startLeft = scroller.scrollLeft;
+        scroller.classList.remove('cursor-grab');
+        scroller.classList.add('cursor-grabbing');
+      }, { passive: true });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const dx = e.clientX - startX;
+        scroller.scrollLeft = startLeft - dx;
+      }, { passive: false });
+
+      window.addEventListener('mouseup', () => {
+        if (!isDown) return;
+        isDown = false;
+        scroller.classList.remove('cursor-grabbing');
+        scroller.classList.add('cursor-grab');
+      }, { passive: true });
+
+      // wheel vertikal -> horizontal
+      scroller.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          scroller.scrollLeft += e.deltaY;
+          e.preventDefault();
+        }
+      }, { passive: false });
+    })();
+  </script>
+
+  <!-- <script>
+    // === LOCATION — Illustrated map with SVG pins & route ===
+  (() => {
+    // 1) Setup & data (koordinat GEO diubah ke koordinat SVG sederhana)
+    // Kita map koordinat lat/lng ke koordinat lokal (0..1000 x 0..600) via linear mapping.
+    // Tentukan bounding box area (ambil dari peta yang kamu pakai).
+    const MAP_BOUNDS = {
+      // contoh kira-kira area Sentul; sesuaikan agar pin tepat
+      minLat: -6.56, maxLat: -6.50,
+      minLng: 106.82, maxLng: 106.87
+    };
+
+    // pusat Harsen Land (dipakai sebagai origin rute)
+    const center = { name: 'Harsen Land', lat: -6.525530, lng: 106.844353, key: 'center' };
+
+    // POIs dari kamu:
+    const POIS = [
+      { key: 'exit_toll', name: 'Exit Toll Sentul', lat: -6.527593, lng: 106.854443 },
+      { key: 'gate2',     name: 'Gerbang Tol Sentul 2', lat: -6.531572, lng: 106.852530 },
+      { key: 'circuit',   name: 'Sirkuit Internasional Sentul', lat: -6.538237812499233, lng: 106.8560477099004 },
+      { key: 'lrt_city',  name: 'LRT City Sentul', lat: -6.5428005628196875, lng: 106.85219016727113 },
+    ];
+
+    const svg   = document.getElementById('locSvg');
+    const pinsG = document.getElementById('pins');
+    const path  = document.getElementById('routePath');
+    const cards = document.querySelectorAll('#location-illustrated .poi-card');
+
+    // Helpers: convert geo -> svg coords
+    function geoToSvg(lat, lng) {
+      const x = ((lng - MAP_BOUNDS.minLng) / (MAP_BOUNDS.maxLng - MAP_BOUNDS.minLng)) * 1000;
+      const y = ((MAP_BOUNDS.maxLat - lat) / (MAP_BOUNDS.maxLat - MAP_BOUNDS.minLat)) * 600;
+      return { x, y };
+    }
+
+    // Draw a pin (returns <g>)
+    function drawPin({ x, y, key, isCenter = false }) {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('data-key', key);
+      g.setAttribute('transform', `translate(${x},${y})`);
+      g.style.cursor = 'pointer';
+
+      // style pin
+      const outer = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      outer.setAttribute('r', isCenter ? '16' : '12');
+      outer.setAttribute('fill', isCenter ? '#0d1b1e' : '#ffffff');
+      outer.setAttribute('stroke', '#1f2e2b');
+      outer.setAttribute('stroke-width', isCenter ? '3' : '2');
+      outer.setAttribute('opacity', isCenter ? '0.95' : '0.9');
+
+      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('r', isCenter ? '3' : '2');
+      dot.setAttribute('fill', isCenter ? '#ffffff' : '#1f2e2b');
+
+      g.appendChild(outer);
+      g.appendChild(dot);
+      pinsG.appendChild(g);
+      return g;
+    }
+
+    // Route curve: simple cubic bezier with control points in between
+    function routeCurve(a, b) {
+      // control points: geser sedikit agar melengkung ke atas
+      const midX = (a.x + b.x) / 2;
+      const c1 = { x: (a.x + midX) / 2, y: a.y - 60 };
+      const c2 = { x: (b.x + midX) / 2, y: b.y - 60 };
+      return `M ${a.x} ${a.y} C ${c1.x} ${c1.y}, ${c2.x} ${c2.y}, ${b.x} ${b.y}`;
+    }
+
+    // Animate dashed path draw
+    function animatePathDraw(el) {
+      const length = el.getTotalLength();
+      el.style.strokeDasharray = `${length}`;
+      el.style.strokeDashoffset = `${length}`;
+      el.style.opacity = '1';
+      el.getBoundingClientRect(); // reflow
+      el.style.transition = 'stroke-dashoffset 900ms ease-out';
+      el.style.strokeDashoffset = '0';
+    }
+
+    // Render center + hidden POI pins (akan highlight ketika card dipilih)
+    const centerPt = geoToSvg(center.lat, center.lng);
+    const centerPin = drawPin({ ...centerPt, key: 'center', isCenter: true });
+
+    const pinMap = new Map();
+    POIS.forEach(poi => {
+      const pt = geoToSvg(poi.lat, poi.lng);
+      const g = drawPin({ ...pt, key: poi.key, isCenter: false });
+      // default tampil tipis
+      g.setAttribute('opacity', '0.55');
+
+      // klik pin → scroll ke card terkait
+      g.addEventListener('click', () => {
+        const card = document.querySelector(`.poi-card[data-key="${poi.key}"]`);
+        if (!card) return;
+        const scroller = document.getElementById('locCards');
+        const rect = card.getBoundingClientRect();
+        const sc  = scroller.getBoundingClientRect();
+        scroller.scrollBy({ left: rect.left - sc.left - 16, behavior: 'smooth' });
+        showRouteTo(poi.key);
+      });
+
+      pinMap.set(poi.key, { g, pt });
+    });
+
+    // Highlight + route draw
+    function showRouteTo(key) {
+      // highlight pin
+      pinMap.forEach(({ g }) => g.setAttribute('opacity', '0.4'));
+      const active = pinMap.get(key);
+      if (!active) return;
+      active.g.setAttribute('opacity', '1');
+      active.g.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.2)' }, { transform: 'scale(1)' }],
+                      { duration: 400, easing: 'ease-out' });
+
+      // draw route
+      const d = routeCurve(centerPt, active.pt);
+      path.setAttribute('d', d);
+      animatePathDraw(path);
+    }
+
+    // Cards → route
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const key = card.getAttribute('data-key');
+        showRouteTo(key);
+        // feedback kecil di card
+        card.animate([{ transform:'scale(1)'},{ transform:'scale(1.02)'},{ transform:'scale(1)'}],
+                    { duration:300, easing:'ease-out' });
+      });
+    });
+
+    // Optional: pilih default
+    // showRouteTo('exit_toll');
+  })();
+
+  </script> -->
+
+
+  <script>
+    const CENTER = { lat: -6.525530, lng: 106.844353 }; // Harsen Land
+    const POIS = [
+      { key: 'exit_toll', name: 'Exit Toll Sentul', lat: -6.527593, lng: 106.854443 },
+      { key: 'gate2',     name: 'Gerbang Tol Sentul 2', lat: -6.531572, lng: 106.852530 },
+      { key: 'circuit',   name: 'Sirkuit Internasional Sentul', lat: -6.538237812499233, lng: 106.8560477099004 },
+      { key: 'lrt_city',  name: 'LRT City Sentul', lat: -6.5428005628196875, lng: 106.85219016727113 },
+    ];
+
+    let map, directionsService, polyline;
+    const poiMarkers = {};
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("gmaps"), {
+        center: CENTER,
+        zoom: 14,
+        disableDefaultUI: true,
+        styles: [
+          { featureType: 'poi', stylers: [{ visibility: 'off' }] },
+          { featureType: 'transit', stylers: [{ visibility: 'off' }] }
+        ]
+      });
+
+      directionsService = new google.maps.DirectionsService();
+
+      // marker pusat
+      new google.maps.Marker({
+        position: CENTER,
+        map,
+        icon: { path: google.maps.SymbolPath.CIRCLE, scale: 8, fillColor: '#0d1b1e', fillOpacity: 1, strokeWeight: 2 }
+      });
+
+      // marker poi
+      POIS.forEach(p => {
+        const m = new google.maps.Marker({
+          position: { lat: p.lat, lng: p.lng },
+          map,
+          icon: { path: google.maps.SymbolPath.CIRCLE, scale: 5, fillColor: '#fff', fillOpacity: 1, strokeWeight: 2 }
+        });
+        poiMarkers[p.key] = m;
+        m.addListener("click", () => drawRouteTo(p));
+      });
+
+      // polyline (dotted)
+      polyline = new google.maps.Polyline({
+        map,
+        strokeOpacity: 0,
+        icons: [{
+          icon: { path: google.maps.SymbolPath.CIRCLE, scale: 2, fillColor: '#1f2e2b', fillOpacity: 1, strokeWeight: 0 },
+          offset: '0',
+          repeat: '10px'
+        }]
+      });
+
+      // hubungkan cards
+      document.querySelectorAll("#locCards .loc-card").forEach(card => {
+        card.addEventListener("click", () => {
+          const key = card.dataset.key;
+          const poi = POIS.find(p => p.key === key);
+          if (poi) drawRouteTo(poi);
+        });
+      });
+    }
+
+    function drawRouteTo(poi) {
+      directionsService.route({
+        origin: CENTER,
+        destination: { lat: poi.lat, lng: poi.lng },
+        travelMode: google.maps.TravelMode.DRIVING
+      }, (res, status) => {
+        if (status !== "OK") return;
+        const path = res.routes[0].overview_path;
+        polyline.setPath(path);
+        // fit bounds
+        const bounds = new google.maps.LatLngBounds();
+        path.forEach(pt => bounds.extend(pt));
+        bounds.extend(CENTER);
+        map.fitBounds(bounds);
+      });
+    }
+  </script>
+
+  <script>
+    // === CONFIG: ganti nomor WhatsApp tujuan di sini (tanpa +) ===
+    const WA_NUMBER = '6287776533968';
+
+    // small helpers
+    const onlyDigits = (s) => (s || '').replace(/[^0-9]/g, '');
+    function normalizeIndoPhone(raw) {
+      const d = onlyDigits(raw);
+      if (!d) return '';
+      if (d.startsWith('62')) return d;
+      if (d.startsWith('0'))   return '62' + d.slice(1);
+      return '62' + d; // fallback
+    }
+
+    // enable/disable button based on validity
+    (function initRequestForm(){
+      const form  = document.getElementById('requestForm');
+      const nameI = document.getElementById('rqName');
+      const phoneI= document.getElementById('rqPhone');
+      const btn   = document.getElementById('rqSubmit');
+
+      function updateState() {
+        const ok = nameI.value.trim().length >= 2 && onlyDigits(phoneI.value).length >= 8;
+        btn.disabled = !ok;
+      }
+      nameI.addEventListener('input', updateState);
+      phoneI.addEventListener('input', updateState);
+      updateState();
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = nameI.value.trim();
+        const phone = normalizeIndoPhone(phoneI.value);
+
+        if (!name || phone.length < 9) {
+          updateState();
+          return;
+        }
+
+        // === WhatsApp message ===
+        const msg = [
+          'Halo Harsen Land 👋',
+          'Saya ingin meminta penawaran/proposal.',
+          '',
+          `Nama: ${name}`,
+          `Telepon: ${phone}`,
+          'Sumber: Website Harsen Land'
+        ].join('\n');
+
+        const waURL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+        // simple click feedback
+        btn.classList.add('scale-95');
+        setTimeout(() => btn.classList.remove('scale-95'), 160);
+
+        // open WA (new tab)
+        window.open(waURL, '_blank');
+
+        // === (Optional) Email hook - nonaktif. Isi sendiri nanti:
+        // sendEmail({ name, phone });  // implementasikan sendiri
+      });
+    })();
+  </script>
+
+  <!-- Animasi Gelombang Request -->
+  <script>
+      (function initRequestForm(){
+      const form   = document.getElementById('requestForm');
+      const nameI  = document.getElementById('rqName');
+      const phoneI = document.getElementById('rqPhone');
+      const btn    = document.getElementById('rqSubmit');
+      const pulse  = document.getElementById('rqPulse');
+
+      const onlyDigits = (s) => (s || '').replace(/[^0-9]/g, '');
+      function normalizeIndoPhone(raw) {
+        const d = onlyDigits(raw);
+        if (!d) return '';
+        if (d.startsWith('62')) return d;
+        if (d.startsWith('0'))   return '62' + d.slice(1);
+        return '62' + d;
+      }
+
+      function updateState() {
+        const ok = nameI.value.trim().length >= 2 && onlyDigits(phoneI.value).length >= 8;
+        btn.disabled = !ok;
+        pulse.classList.toggle('radar-active', ok); // aktifkan gelombang
+      }
+
+      nameI.addEventListener('input', updateState);
+      phoneI.addEventListener('input', updateState);
+      updateState();
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = nameI.value.trim();
+        const phone = normalizeIndoPhone(phoneI.value);
+        if (!name || phone.length < 9) { updateState(); return; }
+
+        const msg = [
+          'Halo Harsen Land 👋',
+          'Saya ingin meminta penawaran/proposal.',
+          '',
+          `Nama: ${name}`,
+          `Telepon: ${phone}`,
+          'Sumber: Website Harsen Land'
+        ].join('\n');
+
+        const WA_NUMBER = '6287776533968'; // ganti nomor WA kamu
+        const waURL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+        // micro-feedback klik
+        btn.classList.add('scale-95'); setTimeout(()=>btn.classList.remove('scale-95'),160);
+
+        window.open(waURL, '_blank');
+      });
+    })();
+
+  </script>
+
+  <!-- Parallax Future Development -->
+  <script>
+      // ===== Parallax background for the section =====
+    (function setupFactsParallax() {
+        const section = document.getElementById('future-dev');
+        const bg = document.getElementById('fdBg');
+        let ticking = false;
+
+        function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            const rect = section.getBoundingClientRect();
+            // progress 0..1 saat section terlihat
+            const vh = window.innerHeight || 1;
+            const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
+            const t = visible / Math.min(vh, rect.height || vh);
+            // parallax: gerakkan gambar sedikit (20px) sesuai posisi section
+            const offset = -rect.top * 0.2; // 0.2 = kecepatan parallax
+            bg.style.transform = `translateY(${offset}px)`;
+            ticking = false;
+        });
+        }
+
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+    })();
+  </script>
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/73175b7b09.js" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
