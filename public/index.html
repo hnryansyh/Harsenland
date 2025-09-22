@@ -106,7 +106,7 @@
 
   <!-- SIDEBAR -->
   <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-500 z-40"></div>
-  <aside id="sidebar" class="fixed px-32 flex flex-col justify-between py-10 inset-y-0 left-0 w-full lg:w-2/3 bg-[#21225F] text-white transform -translate-x-full transition-transform duration-500 z-50">
+  <aside id="sidebar" class="fixed px-10 lg:px-32 flex flex-col justify-between py-10 inset-y-0 left-0 w-full lg:w-2/3 bg-[#21225F] text-white transform -translate-x-full transition-transform duration-500 z-50">
     <div class="flex justify-between items-center">
       <img src="/assets/Logo_Harsenland_White.png" alt="Harsen Land" class="h-10" />
       <button id="closeSidebar" aria-label="Close" class="">
@@ -115,7 +115,7 @@
         </svg>
       </button>
     </div>
-    <nav class="space-y-8 text-5xl uppercase tracking-widest font-primaryMedium">
+    <nav class="space-y-8 text-3xl lg:text-5xl uppercase tracking-widest font-primaryMedium">
       <a href="#home" class="block hover:opacity-80">Home</a>
       <a href="#about" class="block hover:opacity-80">About Us</a>
       <a href="#residential" class="block hover:opacity-80">Residential</a>
@@ -147,10 +147,10 @@
       <div id="whiteOverlay" class="absolute inset-0 bg-white animate-overlayFade pointer-events-none"></div>
       <div class="relative z-10 h-full">
         <div class="mx-auto max-w-[1400px] px-4 lg:px-6 h-full flex items-end justify-between">
-          <h1 id="heroHeadline" class="font-primaryMedium mb-10 lg:mb-16 max-w-3xl text-[18px] md:text-[20px] lg:text-[30px] uppercase tracking-[0.2em] text-center lg:text-left animate-textReveal">
+          <h1 id="heroHeadline" class="mx-auto lg:mx-0 font-primaryMedium mb-16 max-w-xs lg:max-w-3xl text-[20px] md:text-[25px] lg:text-[30px] uppercase tracking-[0.2em] text-center lg:text-left animate-textReveal">
             Luxury family residences with a well-developed
           </h1>
-          <a href="">
+          <a href="" class="hidden lg:block">
             <img src="/assets/icon/whatsapp.svg" class="mb-10 lg:mb-16 animate-textReveal" alt="">
           </a>
           </div>
@@ -163,10 +163,9 @@
     <div class="h-screen"></div>
 
     <!-- ABOUT SECTION -->
-    <section id="about" class="relative bg-white text-brand-navy py-16">
-      <div class="mx-auto px-4 text-center mb-12">
-        <p class="text-sm md:text-base mb-2"></p>
-        <h2 class="text-4xl md:text-xl font-medium font-primaryMedium tracking-widest">
+    <section id="about" class="relative bg-white text-brand-navy py-8 lg:py-16">
+      <div class="mx-auto px-4 text-center mb-6 lg:mb-12">
+        <h2 class="text-sm md:text-xl font-medium font-primaryMedium tracking-widest">
           Located in one of Miami Beach’s most desirable residential neighborhoods, <br>42 Pine offers a limited collection of fifty well-appointed residences
           <br>with exceptional services and amenities.
         </h2>
@@ -174,12 +173,12 @@
 
       <!-- Carousel -->
       <div class="relative mx-auto overflow-hidden">
-        <div id="cardSlider" class="flex justify-between px-10 align-middle items-center transition-transform duration-700 ease-in-out">
+        <div id="cardSlider" class="flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between px-10 align-middle items-center transition-transform duration-700 ease-in-out">
           <!-- Cards -->
           <div class="">
             <a href="">
             <div class="relative">
-              <img src="/assets/matt-reames-g_qTxJEj1AY-unsplash.jpg" class="h-[37rem] w-[37rem] object-cover" alt="Strategic">
+              <img src="/assets/matt-reames-g_qTxJEj1AY-unsplash.jpg" class="h-40 lg:h-[37rem] w-96 lg:w-[37rem] object-cover" alt="Strategic">
               <span class="absolute inset-0 bg-black/40 hover:bg-black/60 transition duration-500 flex items-center justify-center text-white text-lg font-primaryMedium tracking-widest lg:text-3xl">About</span>
             </div>
             </a>
@@ -187,7 +186,7 @@
           <div class="">
             <a href="">
             <div class="relative">
-              <img src="/assets/kam-idris-_HqHX3LBN18-unsplash.jpg" class="h-[37rem] w-[37rem] object-cover" alt="Residential">
+              <img src="/assets/kam-idris-_HqHX3LBN18-unsplash.jpg" class="h-40 lg:h-[37rem] w-96 lg:w-[37rem] object-cover" alt="Residential">
               <span class="absolute inset-0 bg-black/40 hover:bg-black/60 transition duration-500 flex items-center justify-center text-white text-lg font-primaryMedium tracking-widest lg:text-3xl">Residential</span>
             </div>
             </a>
@@ -195,7 +194,7 @@
           <div class="">
             <a href="">
             <div class="relative">
-              <img src="/assets/richard-laursen-b0E6MB3i8rs-unsplash.jpg" class="h-[37rem] w-[37rem] object-cover" alt="Facilities">
+              <img src="/assets/richard-laursen-b0E6MB3i8rs-unsplash.jpg" class="h-40 lg:h-[37rem] w-96 lg:w-[37rem] object-cover" alt="Facilities">
               <span class="absolute inset-0 bg-black/40 hover:bg-black/60 transition duration-500 flex items-center justify-center text-white text-lg font-primaryMedium tracking-widest lg:text-3xl">Facilities</span>
             </div>
             </a>
@@ -221,7 +220,7 @@
 
       <div class="relative mx-auto max-w-6xl px-4">
           <!-- Title -->
-          <h3 class="reveal font-primaryMedium tracking-widest text-center text-xl md:text-2xl lg:text-3xl font-medium mb-8 opacity-0 translate-y-6 transition-all duration-700">
+          <h3 class="reveal font-primaryMedium tracking-widest text-center text-2xl lg:text-3xl font-medium mb-8 opacity-0 translate-y-6 transition-all duration-700">
           Quick Facts About Harsen Land
           </h3>
 
