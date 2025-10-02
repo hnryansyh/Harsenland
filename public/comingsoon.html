@@ -1,0 +1,527 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harsen Land</title>
+    <link rel="stylesheet" href="../dist/output.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap" rel="stylesheet">
+
+    <!-- Efek gelombang lingkaran Request -->
+    <style>
+        /* Radar waves */
+        @keyframes radarPulse {
+        0%   { transform: scale(1);   opacity: .35; }
+        70%  { transform: scale(1.5); opacity: 0;   }
+        100% { transform: scale(2.0); opacity: 0;   }
+        }
+
+        /* wrapper yg mengaktifkan gelombang */
+        .radar-active .radar-wave {
+        animation: radarPulse 1.8s ease-out infinite;
+        }
+
+        /* gelombang dasar */
+        .radar-wave {
+        position: absolute;
+        inset: 0;
+        border-radius: 9999px;
+        background: rgba(0,0,0,.10); /* sesuai tema abu2 */
+        pointer-events: none;
+        filter: blur(.3px);
+        opacity: 0;
+        }
+
+        /* hiasan: 2 gelombang dg delay biar beruntun */
+        .radar-wave.delay-1 { animation-delay: .6s; }
+        .radar-wave.delay-2 { animation-delay: 1.2s; }
+
+        /* hormati preferensi OS */
+        @media (prefers-reduced-motion: reduce) {
+        .radar-wave { animation: none !important; }
+        }
+    </style>
+    
+    </head>
+    <body class="bg-brand-navy text-white antialiased font-montserrat">
+
+    <!-- NAVBAR -->
+    <header class="fixed inset-x-0 top-0 z-40 font-ivy font-medium tracking-widest">
+        <!-- Gradient (awal) -->
+        <div class="absolute inset-x-0 top-0 h-[76px] lg:h-[88px] bg-gradient-to-b  opacity-0 transition-all duration-500"></div>
+        <img src="/assets/bg-01.jpg" class="h-full w-full saturate-0 object-cover overflow-hidden absolute" alt="">
+        <nav class="relative mx-auto max-w-[1400px] px-4 lg:px-6 flex items-center justify-between h-[76px] lg:h-[88px]">
+        <!-- Desktop kiri -->
+        <div class="hidden lg:flex items-center gap-4">
+            <button aria-label="Menu" id="openSidebar" class="p-2">
+            <img src="/assets/icon/hamburger.svg" class="w-8 from-black" alt="">
+            </button>
+            <a href="comingsoon.html" class="text-black  rounded-full border border-black px-7 py-2 text-[0.7rem] hover:bg-black/10 transition">VIRTUAL TOUR</a>
+        </div>
+        <!-- Logo -->
+        <a id="navlogo" href="index.html" class="hidden lg:inline-block">
+            <img src="/assets/Logo_Harsenland_Color.png" alt="Harsen Land" class="h-8 saturate-0" />
+        </a>
+        <!-- Desktop kanan -->
+        <div class="hidden lg:flex items-center gap-8 text-black font-medium">
+            <a href="tel:+6287776533968" class="text-sm hover:opacity-80 transition">+6287776533968</a>
+            <a href="https://wa.me/6287776533968" class="text-sm hover:opacity-80 transition">CONTACT US</a>
+        </div>
+
+            <!-- Mobile -->
+            <div class="flex w-full items-center justify-between lg:hidden">
+                <button aria-label="Menu" id="openSidebarMobile" class="icon-circle-outline">
+                    <img src="/assets/icon/hamburger.svg" class="w-4" alt="">
+                </button>
+                <a href="index.html">
+                    <img src="/assets/Logo_Harsenland_White.png" alt="Harsen Land" class="h-7" />
+                </a>
+                <a href="https://wa.me/6287776533968" target="_blank" rel="noopener" class="icon-circle-outline" aria-label="WhatsApp">
+                    <img src="/assets/icon/call_1860152.svg" class="text-white w-5" alt="">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- SIDEBAR -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-500 z-40"></div>
+    <aside id="sidebar" class="fixed px-10 lg:px-32 flex flex-col justify-between py-10 inset-y-0 left-0 w-full lg:w-2/3 text-black bg-[#F6F4EB] transform -translate-x-full transition-transform duration-500 z-50">
+        <div class="relative flex justify-between items-center">
+            <a href="index.html">
+            <img src="/assets/Logo_Harsenland_Color.png" alt="Harsen Land" class="h-10 saturate-0" />
+            </a>
+            <button id="closeSidebar" aria-label="Close" class="">
+            <svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            </button>
+        </div>
+        <nav class="relative space-y-8 text-3xl lg:text-6xl uppercase tracking-wider font-ivy ">
+            <a href="index.html" class="block hover:opacity-80">Home</a>
+            <a href="about.html" class="block hover:opacity-80">About Us</a>
+            <a href="residential.html" class="block hover:opacity-80">Residential</a>
+            <a href="facilities.html" class="block hover:opacity-80">Facilities</a>
+            <a href="comingsoon.html" class="block hover:opacity-80">Virtual Tour</a>
+            <a href="#" class="block hover:opacity-80">Contact Us</a>
+        </nav>
+        <div class="relative flex flex-row items-end justify-between">
+            <div class="space-y-1 text-sm tracking-wider">
+                <p>CONSTRUCTION PROGRESS</p>
+                <p>TEAM</p>
+                <p>DOCUMENTATION</p>
+                <p>DEVELOPER</p>
+                <p>NEWS AND OFFERS</p>
+            </div>
+            <div class="flex flex-row gap-3 text-2xl align-middle items-center">
+                <a href="https://wa.me/6287776533968">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="#">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a href="#">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <div class="h-screen">
+        <img src="/assets/comingsoon-01.jpg" class="object-cover" alt="">
+    </div>
+
+    <a href="https://wa.me/6287776353968" class="fixed bottom-5 right-5 z-50 animate-slideUp">
+        <img src="/assets/icon/whatsapp.svg" class="cursor-pointer" alt="">
+    </a>
+
+
+    <!-- Back to top (smooth) -->
+    <script>
+        document.getElementById('btnBackTop')?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+    <!-- Sidebar -->
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const openBtns = [document.getElementById('openSidebar'), document.getElementById('openSidebarMobile')];
+        const closeBtn = document.getElementById('closeSidebar');
+        function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('opacity-0','pointer-events-none');
+        overlay.classList.add('opacity-100');
+        }
+        function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('opacity-0','pointer-events-none');
+        overlay.classList.remove('opacity-100');
+        }
+        openBtns.forEach(btn => btn?.addEventListener('click', openSidebar));
+        closeBtn.addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+
+        go(index,false);
+        startAuto();
+    </script>
+
+    <!-- Count-up, Reveal on-scroll, Parallax background -->
+    <script>
+    // ===== Reveal on scroll (fade-in + translate) =====
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+        if (e.isIntersecting) {
+            e.target.classList.remove('opacity-0','translate-y-6');
+            e.target.classList.add('opacity-100','translate-y-0');
+            io.unobserve(e.target);
+        }
+        });
+    }, { root: null, threshold: 0.2 });
+
+    document.querySelectorAll('#quick-facts .reveal').forEach(el => io.observe(el));
+
+    // ===== Count-up numbers when visible =====
+    function animateCount(el, to, duration = 1200) {
+        const start = performance.now();
+        function frame(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const val = Math.floor(to * (t < 1 ? (1 - Math.pow(1 - t, 3)) : 1)); // easeOutCubic
+        el.textContent = val.toLocaleString('en-US');
+        if (t < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+    }
+
+    const factsObserver = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+        if (e.isIntersecting) {
+            const box = e.target;
+            const to = parseInt(box.dataset.to, 10) || 0;
+            const suffix = (box.dataset.suffix || '').trim();
+            const num = box.querySelector('.count');
+            const suf = box.querySelector('.suffix');
+            if (suf && suffix) suf.textContent = suffix;
+            animateCount(num, to, 1200);
+            factsObserver.unobserve(box);
+        }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('#quick-facts .fact').forEach(el => factsObserver.observe(el));
+
+    // ===== Parallax background for the section =====
+    (function setupFactsParallax() {
+        const section = document.getElementById('quick-facts');
+        const bg = document.getElementById('factsBg');
+        let ticking = false;
+
+        function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            const rect = section.getBoundingClientRect();
+            // progress 0..1 saat section terlihat
+            const vh = window.innerHeight || 1;
+            const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
+            const t = visible / Math.min(vh, rect.height || vh);
+            // parallax: gerakkan gambar sedikit (20px) sesuai posisi section
+            const offset = -rect.top * 0.5; // 0.2 = kecepatan parallax
+            bg.style.transform = `translateY(${offset}px)`;
+            ticking = false;
+        });
+        }
+
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+    })();
+    </script>
+
+    <!-- Request Page -->
+    <script>
+        // === CONFIG: ganti nomor WhatsApp tujuan di sini (tanpa +) ===
+        const WA_NUMBER = '6287776533968';
+
+        // small helpers
+        const onlyDigits = (s) => (s || '').replace(/[^0-9]/g, '');
+        function normalizeIndoPhone(raw) {
+        const d = onlyDigits(raw);
+        if (!d) return '';
+        if (d.startsWith('62')) return d;
+        if (d.startsWith('0'))   return '62' + d.slice(1);
+        return '62' + d; // fallback
+        }
+
+        // enable/disable button based on validity
+        (function initRequestForm(){
+        const form  = document.getElementById('requestForm');
+        const nameI = document.getElementById('rqName');
+        const phoneI= document.getElementById('rqPhone');
+        const btn   = document.getElementById('rqSubmit');
+
+        function updateState() {
+            const ok = nameI.value.trim().length >= 2 && onlyDigits(phoneI.value).length >= 8;
+            btn.disabled = !ok;
+        }
+        nameI.addEventListener('input', updateState);
+        phoneI.addEventListener('input', updateState);
+        updateState();
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = nameI.value.trim();
+            const phone = normalizeIndoPhone(phoneI.value);
+
+            if (!name || phone.length < 9) {
+            updateState();
+            return;
+            }
+
+            // === WhatsApp message ===
+            const msg = [
+            'Halo Harsen Land 👋',
+            'Saya ingin meminta penawaran/proposal.',
+            '',
+            `Nama: ${name}`,
+            `Telepon: ${phone}`,
+            'Sumber: Website Harsen Land'
+            ].join('\n');
+
+            const waURL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+            // simple click feedback
+            btn.classList.add('scale-95');
+            setTimeout(() => btn.classList.remove('scale-95'), 160);
+
+            // open WA (new tab)
+            window.open(waURL, '_blank');
+
+            // === (Optional) Email hook - nonaktif. Isi sendiri nanti:
+            // sendEmail({ name, phone });  // implementasikan sendiri
+        });
+        })();
+    </script>
+
+    <!-- Animasi Gelombang Request -->
+    <script>
+        (function initRequestForm(){
+        const form   = document.getElementById('requestForm');
+        const nameI  = document.getElementById('rqName');
+        const phoneI = document.getElementById('rqPhone');
+        const btn    = document.getElementById('rqSubmit');
+        const pulse  = document.getElementById('rqPulse');
+
+        const onlyDigits = (s) => (s || '').replace(/[^0-9]/g, '');
+        function normalizeIndoPhone(raw) {
+            const d = onlyDigits(raw);
+            if (!d) return '';
+            if (d.startsWith('62')) return d;
+            if (d.startsWith('0'))   return '62' + d.slice(1);
+            return '62' + d;
+        }
+
+        function updateState() {
+            const ok = nameI.value.trim().length >= 2 && onlyDigits(phoneI.value).length >= 8;
+            btn.disabled = !ok;
+            pulse.classList.toggle('radar-active', ok); // aktifkan gelombang
+        }
+
+        nameI.addEventListener('input', updateState);
+        phoneI.addEventListener('input', updateState);
+        updateState();
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = nameI.value.trim();
+            const phone = normalizeIndoPhone(phoneI.value);
+            if (!name || phone.length < 9) { updateState(); return; }
+
+            const msg = [
+            'Halo Harsen Land 👋',
+            'Saya ingin meminta penawaran/proposal.',
+            '',
+            `Nama: ${name}`,
+            `Telepon: ${phone}`,
+            'Sumber: Website Harsen Land'
+            ].join('\n');
+
+            const WA_NUMBER = '6287776533968'; // ganti nomor WA kamu
+            const waURL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+            // micro-feedback klik
+            btn.classList.add('scale-95'); setTimeout(()=>btn.classList.remove('scale-95'),160);
+
+            window.open(waURL, '_blank');
+        });
+        })();
+
+    </script>
+
+    <!-- Parallax Future Development -->
+    <script>
+        // ===== Parallax background for the section =====
+        (function setupFactsParallax() {
+            const section = document.getElementById('future-dev');
+            const bg = document.getElementById('fdBg');
+            let ticking = false;
+
+            function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                const rect = section.getBoundingClientRect();
+                // progress 0..1 saat section terlihat
+                const vh = window.innerHeight || 1;
+                const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
+                const t = visible / Math.min(vh, rect.height || vh);
+                // parallax: gerakkan gambar sedikit (20px) sesuai posisi section
+                const offset = -rect.top * 0.2; // 0.2 = kecepatan parallax
+                bg.style.transform = `translateY(${offset}px)`;
+                ticking = false;
+            });
+            }
+
+            onScroll();
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+        })();
+    </script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/73175b7b09.js" crossorigin="anonymous"></script>
+
+    <!-- Under Development Alert -->
+    <script>
+        const backdrop = document.getElementById('modalOverlay');
+        const trigger = document.getElementById('triggerImage');
+        const cancelBtn = document.getElementById('cancelBtn');
+
+
+        function openModal() {
+        backdrop.classList.remove('hidden');
+        document.documentElement.style.overflow = 'hidden';
+        }
+
+
+        function closeModal() {
+        backdrop.classList.add('hidden');
+        document.documentElement.style.overflow = '';
+        }
+
+
+        trigger.addEventListener('click', openModal);
+        cancelBtn.addEventListener('click', closeModal);
+
+
+        // Klik di luar card untuk menutup
+        backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closeModal();
+        });
+
+
+        // ESC untuk menutup
+        window.addEventListener('keydown', (e) => {
+        if (!backdrop.classList.contains('hidden') && e.key === 'Escape') closeModal();
+        });
+    </script>
+
+    <!-- Slideshow About Us -->
+    <script>
+        const slides = document.querySelectorAll('#slides .slide');
+        const counter = document.getElementById('counter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const current = document.getElementById('current');
+        const totalEl = document.querySelector('#counter span:last-child');
+
+        const total = slides.length;
+        totalEl.textContent = `/${String(total).padStart(2,'0')}`;
+
+        function showSlide(i) {
+        slides.forEach((s, idx) => {
+            s.style.opacity = idx === i ? '1' : '0';
+        });
+        current.textContent = String(i+1).padStart(2,'0');
+        index = i;
+        }
+
+        function nextSlide() {
+            showSlide((index + 1) % total);
+        }
+        function prevSlide() {
+            showSlide((index - 1 + total) % total);
+        }
+
+        // Autoplay
+        function startTimer() {
+            timer = setInterval(nextSlide, 5000);
+        }
+        function resetTimer() {
+            clearInterval(timer);
+            startTimer();
+        }
+
+        nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+        prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
+
+        // Init
+        showSlide(0);
+        startTimer();
+    </script>
+
+    <script>
+  // Parallax horizontal mengikuti scroll (maju mundur)
+  (() => {
+    const section = document.getElementById('facilities');
+    const items = Array.from(section.querySelectorAll('.fac-item img'));
+    let ticking = false;
+
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+
+    function update() {
+      ticking = false;
+
+      const vh = window.innerHeight || 1;
+      const rect = section.getBoundingClientRect();
+
+      // progress 0..1 selama section terlihat di viewport
+      // (0 saat mulai masuk, 1 saat keluar)
+      const total = rect.height + vh;
+      const seen = vh - rect.top;              // kira-kira berapa bagian yang dilalui
+      const t = clamp(seen / total, 0, 1);     // 0..1
+
+      // amplitude: lebih kecil di mobile
+      const isMobile = window.matchMedia('(max-width: 767px)').matches;
+      const AMP = isMobile ? 20 : 40;          // px
+
+      // Geser kiri/kanan linear: (t - 0.5)*2 => -1..1
+      const base = (t - 0.5) * 2;              // -1..1
+
+      items.forEach((img, i) => {
+        const dir = (i % 2 === 0) ? 1 : -1;    // selang-seling arah
+        const offset = dir * base * AMP;
+        img.style.transform = `translateX(${offset}px)`;
+        img.style.willChange = 'transform';
+      });
+    }
+
+    // Inisialisasi & listeners
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  })();
+    </script>
+
+
+    </body>
+    </html>

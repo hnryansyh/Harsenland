@@ -1,0 +1,1059 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harsen Land</title>
+    <link rel="stylesheet" href="../dist/output.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Young+Serif&display=swap" rel="stylesheet">
+
+    <!-- Efek gelombang lingkaran Request -->
+    <style>
+        /* Radar waves */
+        @keyframes radarPulse {
+        0%   { transform: scale(1);   opacity: .35; }
+        70%  { transform: scale(1.5); opacity: 0;   }
+        100% { transform: scale(2.0); opacity: 0;   }
+        }
+
+        /* wrapper yg mengaktifkan gelombang */
+        .radar-active .radar-wave {
+        animation: radarPulse 1.8s ease-out infinite;
+        }
+
+        /* gelombang dasar */
+        .radar-wave {
+        position: absolute;
+        inset: 0;
+        border-radius: 9999px;
+        background: rgba(0,0,0,.10); /* sesuai tema abu2 */
+        pointer-events: none;
+        filter: blur(.3px);
+        opacity: 0;
+        }
+
+        /* hiasan: 2 gelombang dg delay biar beruntun */
+        .radar-wave.delay-1 { animation-delay: .6s; }
+        .radar-wave.delay-2 { animation-delay: 1.2s; }
+
+        /* hormati preferensi OS */
+        @media (prefers-reduced-motion: reduce) {
+        .radar-wave { animation: none !important; }
+        }
+    </style>
+    <style>
+        .fade {
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .fade-enter {
+        opacity: 0;
+        transform: translateY(10px);
+        }
+        .fade-show {
+        opacity: 1;
+        transform: translateY(0);
+        }
+    </style>
+    <style>
+    /* helper */
+    .fade-swap{transition:opacity .35s ease,transform .35s ease}
+    </style>
+    
+    </head>
+    <body class="antialiased font-montserrat">
+
+    <!-- NAVBAR -->
+    <header class="fixed inset-x-0 top-0 z-40 font-ivy font-medium tracking-widest">
+        <!-- Gradient (awal) -->
+        <div class="absolute inset-x-0 top-0 h-[76px] lg:h-[88px] bg-gradient-to-b  opacity-0 transition-all duration-500"></div>
+        <img src="/assets/bg-01.jpg" class="h-full w-full saturate-0 object-cover overflow-hidden absolute" alt="">
+        <nav class="relative mx-auto max-w-[1400px] px-4 lg:px-6 flex items-center justify-between h-[76px] lg:h-[88px]">
+        <!-- Desktop kiri -->
+        <div class="hidden lg:flex items-center gap-4">
+            <button aria-label="Menu" id="openSidebar" class="p-2">
+            <img src="/assets/icon/hamburger.svg" class="w-8 from-black" alt="">
+            </button>
+            <a href="comingsoon.html" class="text-black  rounded-full border border-black px-7 py-2 text-[0.7rem] hover:bg-black/10 transition">VIRTUAL TOUR</a>
+        </div>
+        <!-- Logo -->
+        <a id="navlogo" href="index.html" class="hidden lg:inline-block">
+            <img src="/assets/Logo_Harsenland_Color.png" alt="Harsen Land" class="h-8 saturate-0" />
+        </a>
+        <!-- Desktop kanan -->
+        <div class="hidden lg:flex items-center gap-8 text-black font-medium">
+            <a href="tel:+6287776533968" class="text-sm hover:opacity-80 transition">+6287776533968</a>
+            <a href="https://wa.me/6287776533968" class="text-sm hover:opacity-80 transition">CONTACT US</a>
+        </div>
+
+            <!-- Mobile -->
+            <div class="flex w-full items-center justify-between lg:hidden">
+                <button aria-label="Menu" id="openSidebarMobile" class="icon-circle-outline">
+                    <img src="/assets/icon/hamburger.svg" class="w-4" alt="">
+                </button>
+                <a href="index.html">
+                    <img src="/assets/Logo_Harsenland_White.png" alt="Harsen Land" class="h-7" />
+                </a>
+                <a href="https://wa.me/6287776533968" target="_blank" rel="noopener" class="icon-circle-outline" aria-label="WhatsApp">
+                    <img src="/assets/icon/call_1860152.svg" class="text-white w-5" alt="">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- SIDEBAR -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-500 z-40"></div>
+    <aside id="sidebar" class="fixed px-10 lg:px-32 flex flex-col justify-between py-10 inset-y-0 left-0 w-full lg:w-2/3 text-black bg-[#F6F4EB] transform -translate-x-full transition-transform duration-500 z-50">
+        <div class="relative flex justify-between items-center">
+            <a href="index.html">
+            <img src="/assets/Logo_Harsenland_Color.png" alt="Harsen Land" class="h-10 saturate-0" />
+            </a>
+            <button id="closeSidebar" aria-label="Close" class="">
+            <svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            </button>
+        </div>
+        <nav class="relative space-y-8 text-3xl lg:text-6xl uppercase tracking-wider font-ivy ">
+            <a href="index.html" class="block hover:opacity-80">Home</a>
+            <a href="about.html" class="block hover:opacity-80">About Us</a>
+            <a href="residential.html" class="block hover:opacity-80">Residential</a>
+            <a href="facilities.html" class="block hover:opacity-80">Facilities</a>
+            <a href="comingsoon.html" class="block hover:opacity-80">Virtual Tour</a>
+            <a href="#" class="block hover:opacity-80">Contact Us</a>
+        </nav>
+        <div class="relative flex flex-row items-end justify-between">
+            <div class="space-y-1 text-sm tracking-wider">
+                <p>CONSTRUCTION PROGRESS</p>
+                <p>TEAM</p>
+                <p>DOCUMENTATION</p>
+                <p>DEVELOPER</p>
+                <p>NEWS AND OFFERS</p>
+            </div>
+            <div class="flex flex-row gap-3 text-2xl align-middle items-center">
+                <a href="https://wa.me/6287776533968">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="#">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+                <a href="#">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <div class="mx-auto max-w-[1400px] border-b-2">
+        <h1 class="font-ivy pt-32 pb-11 text-4xl tracking-normal text-center">RESIDENTIAL</h1>
+    </div>
+
+    <!-- ====== BAGIAN 1: LEFT sticky (gabung switcher + teks), RIGHT scroll ====== -->
+    <div class="max-w-[1400px] mx-auto">
+        <div class="flex items-start justify-center">
+            <!-- LEFT: satu kotak sticky -->
+            <aside class="w-3/4 lg:sticky top-24 self-start bg-white">
+            <!-- Switcher Top (ikut sticky karena menyatu di kotak ini) -->
+            <div class="flex items-center justify-between gap-6 border-b border-black/15">
+                <div class="h-8 w-px bg-white"></div>
+                <button id="tabA-top" data-type="A" class=" font-bold res-tab px-6 py-3 relative after:absolute after:inset-x-0 after:-bottom-[1px] after:h-[3px] after:bg-[#2c2c2c]">TIPE A</button>
+                <div class="h-8 w-px bg-black/20"></div>
+                <button id="tabB-top" data-type="B" class="res-tab px-6 py-3 text-black/50">TIPE B</button>
+                <div class="h-8 w-px bg-white"></div>
+            </div>
+
+            <!-- Panel teks/angka (tetap di bawah switcher & ikut sticky) -->
+            <div id="leftPanel" class="space-y-4 px-8 py-6 flex flex-col justify-start items-center align-middle font-ivy">
+                <!-- <p class="text-[28px] md:text-6xl leading-tight">
+                    <span class="count-anim" data-key="bedrooms">6</span><span class="text-black/80 font-montserrat font-light text-3xl"> Bedrooms, </span>
+                    <span class="count-anim" data-key="bathrooms">4</span><span class="text-black/80 font-montserrat font-light text-3xl"> Bathrooms</span>
+                </p>
+                <div class="flex items-baseline gap-2">
+                <p class="text-[40px] md:text-[54px] tracking-wide">
+                    <span class="count-anim" data-key="gross">443,23</span>
+                </p>
+                <span class="pb-1 text-[14px] md:text-[25px]">m²</span> <span class="text-black/80 font-montserrat font-light text-3xl">Luas Bangunan</span>
+                </div> -->
+
+                <h3 id="title2" class="text-center text-[28px] md:text-5xl uppercase font-ivy mb-5 fade-swap">Tipe A</h3>
+
+                <!-- 4 angka ringkas -->
+                <div id="numsRow" class="flex flex-row justify-center gap-14 text-center mb-10">
+                    <div class="fade-swap">
+                        <div class="text-4xl md:text-5xl font-ivy tracking-normal"><span class="count-anim" data-key="s_bedrooms">3</span></div>
+                        <div class="text-sm font-montserrat font-normal mt-2">Kamar Tidur</div>
+                    </div>
+                    <div class="border-l border-black"></div>
+                    <div class="fade-swap">
+                        <div class="text-4xl md:text-5xl font-ivy tracking-normal"><span class="count-anim" data-key="s_floors">2</span></div>
+                        <div class="text-sm font-montserrat font-normal mt-2">Kamar Mandi</div>
+                    </div>
+                    <div class="border-l border-black"></div>
+                    <div class="fade-swap">
+                        <div class="text-4xl md:text-5xl font-ivy tracking-normal"><span class="count-anim" data-key="s_floors">2</span></div>
+                        <div class="text-sm font-montserrat font-normal mt-2">Car Ports</div>
+                    </div>
+                </div>
+                <div id="numsRow" class="flex flex-row justify-center gap-14 text-center mb-10">
+                    <div class="fade-swap">
+                        <div class="text-4xl md:text-5xl font-ivy tracking-normal">
+                        <span class="count-anim" data-key="s_ext">59,03</span><span class="text-xl align-bottom">m²</span>
+                        </div>
+                        <div class="text-sm font-montserrat font-normal mt-2">Luas Bangunan</div>
+                    </div>
+                    <div class="border-l border-black"></div>
+                    <div class="fade-swap">
+                        <div class="text-4xl md:text-5xl font-ivy tracking-normal">
+                        <span class="count-anim" data-key="s_int">13,43</span><span class="text-xl align-bottom">m²</span>
+                        </div>
+                        <div class="text-sm font-montserrat font-normal mt-2">Luas Tanah</div>
+                    </div>
+                </div>
+
+                <p class="text-xl font-montserrat max-w-md text-center leading-relaxed text-black/70 pt-5">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent varius quam vitae pretium lobortis.
+                </p>
+
+                <!-- Tombol bundar besar -->
+                <div class="pt-6">
+                    <button class="relative h-36 w-36 rounded-full bg-black/15 grid place-items-center text-[13px] font-semibold tracking-wide">
+                        BOOK NOW
+                        <span class="absolute inset-2 rounded-full border border-black/20"></span>
+                        <span class="absolute inset-0 rounded-full border-2 border-black/10"></span>
+                    </button>
+                </div>
+
+                <div class="mt-4 w-full flex items-center gap-6 text-[14px] justify-between">
+                    <a href="#" class="inline-flex items-center gap-2">
+                    <span class="h-6 w-6 grid place-items-center rounded-full ring-1 ring-black text-[0.5rem]">PDF</span>
+                    Detail Bangunan
+                    </a>
+                    <a href="#" class="inline-flex items-center gap-1 underline underline-offset-4">Unduh PDF</a>
+                </div>
+            </div>
+            </aside>
+
+            <!-- RIGHT: denah panjang yang scroll sendiri -->
+            <div id="plans" class="space-y-10 border-l py-8 border-black/15 w-full flex flex-col align-middle items-end">
+                <figure class="space-y-2">
+                    <figcaption class="text-xl text-center font-bold tracking-wider uppercase">1<span class="text-base">st</span> Floor</figcaption>
+                    <img id="plan1" src="/assets/png/Denah Lt. 1 Tipe 5.5.png"
+                        class="w-[35rem] object-cover" alt="1st floor">
+                </figure>
+                <figure class="space-y-2">
+                    <figcaption class="text-xl text-center font-bold tracking-wider uppercase">2<span class="text-base">nd</span> Floor</figcaption>
+                    <img id="plan2" src="/assets/png/Denah Lt. 2 Tipe 5.5.png"
+                        class="w-[35rem] object-cover" alt="2nd floor">
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Helper row component ===== -->
+    <script>
+        customElements.define('SpecRow', class extends HTMLElement {
+            connectedCallback(){
+            const label = this.getAttribute('label') || '';
+            const value = this.getAttribute('value') || '';
+            this.outerHTML =
+            `<div class="grid grid-cols-[1fr,auto] items-end gap-4">
+                <div class="border-b border-black/15 pb-2">${label}</div>
+                <div class="border-b border-black/15 pb-2 text-right">${value}</div>
+            </div>`;
+            }
+        });
+    </script>
+
+    <!-- ====== BAGIAN 2: Switcher kedua sticky + konten ====== -->
+    <div id="specs" class="border-black/10 bg-white h-fit pb-10">
+        <!-- Switcher Bawah (STICKY) -->
+        <div class="sticky top-0 z-20 bg-white border-black/15">
+            <div class="max-w-[1400px] mx-auto px-4 lg:px-6">
+                <div class="grid grid-cols-2">
+                    <button id="tabA-bottom" data-type="A"
+                    class="res-tab px-6 py-4 text-center bg-[#2c2c2c] text-black font-ivy">TIPE A</button>
+                    <button id="tabB-bottom" data-type="B"
+                    class="res-tab px-6 py-4 text-center bg-black/10 text-black font-ivy">TIPE B</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Konten Bagian 2 (angka ringkas, tabel, harga, dll) -->
+        <div class="max-w-[1400px] mx-auto px-4 lg:px-6 h-[50rem] pt-5 flex flex-col gap-6 justify-center align-bottom items-center">
+            <h3 id="title2" class="text-center text-[28px] md:text-5xl uppercase font-ivy mb-8 fade-swap hidden">Tipe A</h3>
+            <!-- GALLERY: gambar besar + tombol prev/next -->
+            <div id="typeGallery" class="w-full relative overflow-hidden ring-1 ring-black/10 flex items-center align-middle">
+                <img id="galMain" src="" alt="gallery" class="w-full h-screen object-cover">
+
+                <!-- Prev -->
+                <button id="galPrev" type="button"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/90 ring-1 ring-black/10 grid place-items-center hover:bg-white">
+                    ‹
+                </button>
+                <!-- Next -->
+                <button id="galNext" type="button"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/90 ring-1 ring-black/10 grid place-items-center hover:bg-white">
+                    ›
+                </button>
+            </div>
+
+            <!-- Thumbnails -->
+            <div id="galThumbs" class="mt-2 flex gap-3 overflow-x-auto">
+            <!-- isi thumbnail akan di-render via JS -->
+            </div>
+
+
+            <div class="hidden">
+                <!-- 4 angka ringkas -->
+                <div id="numsRow" class="flex flex-row justify-center gap-20 text-center mb-10">
+                    <div class="fade-swap">
+                        <div class="text-4xl md:text-5xl font-ivy tracking-normal"><span class="count-anim" data-key="s_bedrooms">3</span></div>
+                        <div class="text-sm font-montserrat font-normal mt-2">Kamar Tidur</div>
+                    </div>
+                    <div class="border-l border-black"></div>
+                    <div class="fade-swap">
+                        <div class="text-4xl md:text-5xl font-ivy tracking-normal"><span class="count-anim" data-key="s_floors">2</span></div>
+                        <div class="text-sm font-montserrat font-normal mt-2">Lantai</div>
+                    </div>
+                    <div class="border-l border-black"></div>
+                    <div class="fade-swap">
+                        <div class="text-4xl md:text-5xl font-ivy tracking-normal">
+                        <span class="count-anim" data-key="s_ext">59,03</span><span class="text-xl align-bottom">m²</span>
+                        </div>
+                        <div class="text-sm font-montserrat font-normal mt-2">Luas Eksterior</div>
+                    </div>
+                    <div class="border-l border-black"></div>
+                    <div class="fade-swap">
+                        <div class="text-4xl md:text-5xl font-ivy tracking-normal">
+                        <span class="count-anim" data-key="s_int">13,43</span><span class="text-xl align-bottom">m²</span>
+                        </div>
+                        <div class="text-sm font-montserrat font-normal mt-2">Luas Interior</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-40 w-full ">
+                    <!-- Tabel spesifikasi -->
+                    <div class="space-y-8" id="specTable">
+                        <SpecRow label="Halaman Depan"        value="12,77 m²"></SpecRow>
+                        <SpecRow label="Kamar Tidur"          value="11,48 m²"></SpecRow>
+                        <SpecRow label="Area Keluarga + Dapur" value="19,39 m²"></SpecRow>
+                        <SpecRow label="Kamar Mandi + WC"     value="5,17 m²"></SpecRow>
+                        <SpecRow label="Balkon"               value="13,43 m²"></SpecRow>
+                        <div class="grid grid-cols-[1fr,auto] items-center bg-black/5 rounded px-4 py-3">
+                            <span class="font-ivy">Luas Keseluruhan</span>
+                            <span class="font-ivy">74,89 m²</span>
+                        </div>
+                    </div>
+
+                    <!-- Harga + CTA -->
+                    <div class="text-center flex flex-col h-full justify-between">
+                        <p class="text-xl md:text-4xl tracking-wider font-ivy leading-tight">
+                            HARGA PROPERTI TIPE <span id="title2Inline">A</span><br/><span class="text-xl font-normal">*Termasuk Pajak</span>
+                        </p>
+                        <div class="text-[72px] md:text-9xl font-semibold leading-none font-ivy tracking-normal fade-swap text-[#2c2c2c]">
+                            <span id="priceNum">700</span>
+                        </div>
+                        <div class="tracking-normal uppercase text-3xl -mt-1 font-ivy">Jutaan</div>
+
+                        <button class="mx-auto mt-6 w-full lg:w-[30rem] px-8 py-3 bg-[#2c2c2c] text-white font-ivy tracking-normal hover:brightness-110">
+                            BOOK NOW
+                        </button>
+
+                        <div class="mt-4 px-14 flex items-center gap-6 text-[14px] justify-between">
+                            <a href="#" class="inline-flex items-center gap-2">
+                            <span class="h-6 w-6 grid place-items-center rounded-full ring-1 ring-black text-[0.5rem]">PDF</span>
+                            Detail Bangunan
+                            </a>
+                            <a href="#" class="inline-flex items-center gap-1 underline underline-offset-4">Unduh PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ================== DATA ================== */
+        const DATA = {
+            A: {
+            header: { bedrooms: 3, bathrooms: 3, gross: '85' },
+            numbers: { bedrooms: 3, floors: 3, ext: '85', int: '60,5' },
+            price: 700,
+            plans: ['/assets/png/Denah Lt. 1 Tipe 5.5.png','/assets/png/Denah Lt. 2 Tipe 5.5.png'],
+            title: 'Tipe A',
+            specs: [
+                ['Halaman Depan','12,77 m²'],
+                ['Kamar Tidur','11,48 m²'],
+                ['Area Keluarga + Dapur','19,39 m²'],
+                ['Kamar Mandi + WC','5,17 m²'],
+                ['Balkon','13,43 m²'],
+                ['Luas Keseluruhan','74,89 m²', true]
+            ],
+            gallery: [
+                '/assets/image/3.png',
+                '/assets/interior/spacejoy-eyEy5YZhSvU-unsplash.jpg',
+                '/assets/interior/sven-brandsma-GZ5cKOgeIB0-unsplash.jpg',
+                '/assets/interior/jakub-zerdzicki-QgMACSorlBA-unsplash.jpg'
+            ]
+            },
+            B: {
+            header: { bedrooms: 3+1, bathrooms: 2, gross: '100' },
+            numbers: { bedrooms: 4, floors: 3, ext: '100', int: '71,5' },
+            price: 900,
+            plans: ['/assets/png/Denah Lt. 1 Tipe 6.5.png','/assets/png/Denah Lt. 2 Tipe 6.5.png'],
+            title: 'Tipe B',
+            specs: [
+                ['Halaman Depan','10,12 m²'],
+                ['Kamar Tidur','12,33 m²'],
+                ['Area Keluarga + Dapur','21,04 m²'],
+                ['Kamar Mandi + WC','4,82 m²'],
+                ['Balkon','15,10 m²'],
+                ['Luas Keseluruhan','79,41 m²', true]
+            ],
+            gallery: [
+                '/assets/image/4.png',
+                '/assets/interior/spacejoy-eyEy5YZhSvU-unsplash.jpg',
+                '/assets/interior/sven-brandsma-GZ5cKOgeIB0-unsplash.jpg',
+                '/assets/interior/jakub-zerdzicki-QgMACSorlBA-unsplash.jpg'
+            ]
+            }
+        };
+
+        let current = 'A';
+
+        // sinkronisasi style tab
+        function syncTabs(type){
+            const aTop = document.getElementById('tabA-top');
+            const bTop = document.getElementById('tabB-top');
+            aTop.className = 'res-tab px-6 py-3 ' + (type==='A'
+            ? 'font-bold relative after:absolute after:inset-x-0 after:-bottom-[1px] after:h-[3px] after:bg-[#2c2c2c]'
+            : 'text-black/50');
+            bTop.className = 'res-tab px-6 py-3 ' + (type==='B'
+            ? 'font-bold relative after:absolute after:inset-x-0 after:-bottom-[1px] after:h-[3px] after:bg-[#2c2c2c]'
+            : 'text-black/50');
+
+            const aBot = document.getElementById('tabA-bottom');
+            const bBot = document.getElementById('tabB-bottom');
+            aBot.className = 'font-bold res-tab px-6 py-4 text-center ' + (type==='A' ? 'bg-[#2c2c2c] text-white' : 'bg-black/10 text-black/60');
+            bBot.className = 'font-bold res-tab px-6 py-4 text-center ' + (type==='B' ? 'bg-[#2c2c2c] text-white' : 'bg-black/10 text-black/60');
+        }
+
+        function fadeSwapImage(img, src){
+            img.style.opacity = '0';
+            img.style.transform = 'translateY(6px)';
+            setTimeout(()=>{ img.src = src; img.onload = () => {
+            img.style.opacity = '1'; img.style.transform = 'translateY(0)'
+            }}, 160);
+        }
+
+        function countTo(el, target, asFloat=false){
+            const from = parseFloat(el.textContent.toString().replace(',','.')) || 0;
+            const tVal = parseFloat(String(target).replace(',','.'));
+            const dur  = 600;
+            const start= performance.now();
+            function step(now){
+            const k = Math.min(1,(now-start)/dur);
+            const v = from + (tVal-from)*(1-Math.pow(1-k,3)); // easeOutCubic
+            el.textContent = (asFloat ? v.toFixed(2) : Math.round(v)).toString().replace('.',',');
+            if (k<1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const d = DATA[current] || DATA['A'];
+
+            syncTabs(current);
+
+            document.getElementById('title2').textContent = d.title;
+            const inline = document.getElementById('title2Inline');
+            if (inline) inline.textContent = current;
+
+            const p1 = document.getElementById('plan1');
+            const p2 = document.getElementById('plan2');
+            if (p1) p1.src = d.plans[0];
+            if (p2) p2.src = d.plans[1];
+
+            setNumbers(d);
+            setSpecs(d);
+            // setelah setNumbers(d); setSpecs(d); …
+            renderGallery(d.gallery, 0);
+        });
+        // event listener tab-switcher
+        document.querySelectorAll('.switcher').forEach(btn => {
+            btn.addEventListener('click', () => setType(btn.dataset.type));
+        });
+
+        function setNumbers(d){
+            // bagian 1 (atas)
+            document.querySelectorAll('[data-key="bedrooms"]').forEach(el=>countTo(el, d.header.bedrooms));
+            document.querySelectorAll('[data-key="bathrooms"]').forEach(el=>countTo(el, d.header.bathrooms));
+            document.querySelectorAll('[data-key="gross"]').forEach(el=>{
+            el.style.opacity='0'; setTimeout(()=>{ el.textContent = d.header.gross; el.style.opacity='1' },160);
+            });
+
+            // bagian 2 (angka 4 buah)
+            countTo(document.querySelector('[data-key="s_bedrooms"]'), d.numbers.bedrooms);
+            countTo(document.querySelector('[data-key="s_floors"]'),   d.numbers.floors);
+            const eext = document.querySelector('[data-key="s_ext"]');
+            const eint = document.querySelector('[data-key="s_int"]');
+            eext.style.opacity='0'; eint.style.opacity='0';
+            setTimeout(()=>{ eext.textContent=d.numbers.ext; eext.style.opacity='1';
+                            eint.textContent=d.numbers.int; eint.style.opacity='1'; },160);
+
+            // harga
+            countTo(document.getElementById('priceNum'), d.price);
+        }
+
+        function setSpecs(d){
+            const wrap = document.getElementById('specTable');
+            wrap.innerHTML = '';
+            d.specs.forEach(([label, value, highlight])=>{
+            if (highlight){
+                wrap.insertAdjacentHTML('beforeend',
+                `<div class="grid grid-cols-[1fr,auto] items-center bg-black/5 rounded px-2 py-3">
+                    <span class="font-medium">${label}</span>
+                    <span class="font-medium">${value}</span>
+                </div>`);
+            } else {
+                wrap.insertAdjacentHTML('beforeend',
+                `<div class="grid grid-cols-[1fr,auto] items-end gap-4 border-b border-black">
+                    <div class="pb-2">${label}</div>
+                    <div class="pb-2 text-right">${value}</div>
+                </div>`);
+            }
+            });
+        }
+
+        // ====== GALLERY ======
+        let galIndex = 0;
+
+        function renderGallery(list, startIndex = 0) {
+        galIndex = Math.max(0, Math.min(startIndex, list.length - 1));
+        const main = document.getElementById('galMain');
+        const thumbs = document.getElementById('galThumbs');
+
+        if (!main || !thumbs) return;
+
+        // set gambar utama
+        main.style.opacity = '0';
+        setTimeout(() => {
+            main.src = list[galIndex];
+            main.onload = () => main.style.opacity = '1';
+        }, 120);
+
+        // render thumbnails
+        thumbs.innerHTML = '';
+        list.forEach((src, i) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `shrink-0 ring-1 ring-black/10 overflow-hidden hover:opacity-100 transition
+                            ${i === galIndex ? 'opacity-100' : 'opacity-60'}`;
+            btn.innerHTML = `<img src="${src}" class="h-20 w-28 object-cover">`;
+            btn.addEventListener('click', () => renderGallery(list, i));
+            thumbs.appendChild(btn);
+        });
+
+        // wiring prev/next
+        const prev = document.getElementById('galPrev');
+        const next = document.getElementById('galNext');
+        if (prev && next) {
+            prev.onclick = () => {
+            galIndex = (galIndex - 1 + list.length) % list.length;
+            renderGallery(list, galIndex);
+            };
+            next.onclick = () => {
+            galIndex = (galIndex + 1) % list.length;
+            renderGallery(list, galIndex);
+            };
+        }
+        }
+
+
+        function setType(type){
+            if (type===current) return;
+            current = type;
+            const d = DATA[type];
+            syncTabs(type);
+
+            // judul bagian 2
+            const title2 = document.getElementById('title2');
+            title2.style.opacity='0'; title2.style.transform='translateY(6px)';
+            setTimeout(()=>{ title2.textContent = d.title; title2.style.opacity='1'; title2.style.transform='translateY(0)' },160);
+            document.getElementById('title2Inline').textContent = type;
+
+            // gambar denah
+            fadeSwapImage(document.getElementById('plan1'), d.plans[0]);
+            fadeSwapImage(document.getElementById('plan2'), d.plans[1]);
+
+            // angka + spesifikasi
+            setNumbers(d);
+            setSpecs(d);
+            // setelah setNumbers(d); setSpecs(d); …
+            renderGallery(d.gallery, 0);
+        }
+
+        // Event pada semua tab
+        document.querySelectorAll('.res-tab').forEach(btn=>{
+            btn.addEventListener('click', ()=> setType(btn.dataset.type));
+        });
+
+        // Trigger pertama kali saat angka bagian 2 tampak
+        const io = new IntersectionObserver(entries=>{
+            entries.forEach(e=>{
+            if(e.isIntersecting){
+                setNumbers(DATA[current]);
+                io.disconnect();
+            }
+            });
+        }, {threshold:.35});
+        io.observe(document.getElementById('numsRow'));
+
+        // init
+        syncTabs('A');
+    </script>
+
+    <!-- FACILITIES – marquee auto scroll -->
+    <section id="facilities-marquee" class="bg-[#f7f7f7] text-brand-navy py-40">
+        <div class="mx-auto">
+            <h2 class="text-center font-ivy text-[28px] md:text-7xl uppercase mb-8 md:mb-10">
+            INTERIOR DESIGN
+            </h2>
+
+            <!-- viewport -->
+            <div class="relative overflow-hidden">
+            <!-- track yang akan ditranslate -->
+            <div id="marqueeTrack" class="flex gap-6 will-change-transform">
+                <!-- ROW (akan di-clone via JS untuk looping) -->
+                <div id="marqueeRow" class="flex gap-6 shrink-0">
+                <!-- gambar-gambar BESAR -->
+                <figure class="h-[260px] sm:h-[340px] lg:h-[500px] aspect-[1/1] overflow-hidden">
+                    <img src="/assets/interior/jakub-zerdzicki-QgMACSorlBA-unsplash.jpg" class="h-full w-full object-cover" alt="">
+                </figure>
+                <figure class="h-[260px] sm:h-[340px] lg:h-[500px] aspect-[1/1] overflow-hidden">
+                    <img src="/assets/interior/onno-zGKRmwzplVc-unsplash.jpg" class="h-full w-full object-cover" alt="">
+                </figure>
+                <figure class="h-[260px] sm:h-[340px] lg:h-[500px] aspect-[1/1] overflow-hidden">
+                    <img src="/assets/interior/spacejoy-eyEy5YZhSvU-unsplash.jpg" class="h-full w-full object-cover" alt="">
+                </figure>
+                <figure class="h-[260px] sm:h-[340px] lg:h-[500px] aspect-[1/1] overflow-hidden">
+                    <img src="/assets/interior/sven-brandsma-GZ5cKOgeIB0-unsplash.jpg" class="h-full w-full object-cover" alt="">
+                </figure>
+                <figure class="h-[260px] sm:h-[340px] lg:h-[500px] aspect-[1/1] overflow-hidden">
+                    <img src="/assets/interior/WhatsApp Image 2025-09-12 at 18.12.29_8887a10a.jpg" class="h-full w-full object-cover" alt="">
+                </figure>
+                <figure class="h-[260px] sm:h-[340px] lg:h-[500px] aspect-[1/1] overflow-hidden">
+                    <img src="/assets/interior/chastity-cortijo-6TY_WrJTwSI-unsplash.jpg" class="h-full w-full object-cover" alt="">
+                </figure>
+                <figure class="h-[260px] sm:h-[340px] lg:h-[500px] aspect-[1/1] overflow-hidden">
+                    <img src="/assets/interior/IMG-20250913-WA0007.jpg" class="h-full w-full object-cover" alt="">
+                </figure>
+                </div>
+                <!-- Duplikat ROW akan disuntik JS -->
+            </div>
+            </div>
+
+            <p class="mt-8 mx-auto text-center max-w-2xl text-base md:text-2xl text-black/70 leading-relaxed">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent varius quam vitae pretium lobortis.
+            </p>
+        </div>
+    </section>
+
+    <script>
+    (() => {
+    const track = document.getElementById('marqueeTrack');
+    const row   = document.getElementById('marqueeRow');
+
+    // Gandakan row agar bisa looping mulus
+    const clone = row.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+
+    let pos = 0;                 // posisi translateX (px)
+    let base = 40;               // px/detik (kecepatan dasar)
+    let speed = base;
+    let lastT = performance.now();
+    let rowW  = row.getBoundingClientRect().width;
+    let lastY = window.scrollY;
+
+    // hitung ulang lebar row on resize
+    const onResize = () => { rowW = row.getBoundingClientRect().width; };
+    window.addEventListener('resize', onResize);
+
+    // faktor percepatan berdasarkan kecepatan scroll
+    function updateSpeed() {
+        const y = window.scrollY;
+        const vy = y - lastY;      // delta scroll per frame (px)
+        lastY = y;
+
+        // skala percepatan, clamp supaya stabil
+        const boost = Math.max(-120, Math.min(120, vy)) * 0.6; // tweak faktor 0.6 sesukamu
+        // kecepatan final (minimum tetap bergerak)
+        speed = Math.max(10, Math.min(300, base + boost));
+    }
+
+    function frame(t) {
+        const dt = (t - lastT) / 1000; // detik
+        lastT = t;
+
+        updateSpeed();
+
+        pos += speed * dt;          // gerak kanan; untuk kiri gunakan -=
+        // loop: ketika sudah melewati lebar satu row, ulang dari 0
+        if (pos >= rowW) pos -= rowW;
+
+        track.style.transform = `translateX(${-pos}px)`;
+        requestAnimationFrame(frame);
+    }
+
+    // start
+    requestAnimationFrame(frame);
+    })();
+    </script>
+
+
+    <div class="h-full w-full bg-white flex justify-center py-4">
+        <img id="triggerImage" src="/assets/contoh-maps.png" class="w-full" alt="">
+        <div id="modalOverlay" class="absolute flex items-center justify-center w-full h-full">
+        <div id="modalCard" class="w-full max-w-lg rounded-2xl bg-white p-16 shadow-lg">
+            <p class=" font-ivy tracking-normal text-2xl text-center text-black font-semibold">DENAH LOKASI <br> UNDER DEVELOPMENT</p>
+        </div>
+        </div>
+    </div>
+
+    <!-- REQUEST / CONTACT FORM -->
+    <section id="request" class="bg-[#f7f7f7] text-brand-navy py-14 lg:py-20 z-40 h-[90vh]  flex flex-col justify-center items-center">
+        <div class=" px-6 text-center">
+        <p class="text-base tracking-wide uppercase font-montserrat font-medium text-[#727272] ">
+            Our specialist will contact you as soon as possible.
+        </p>
+
+        <h3 class="mt-3 text-[28px] md:text-[36px] lg:text-7xl leading-tight tracking-[0.12em] uppercase font-ivy ">
+            <span class="block">To Your</span>
+            <span class="block">Future Home</span>
+        </h3>
+
+        <form id="requestForm" class="mt-10 space-y-8">
+            <!-- Name -->
+            <label class="block text-left">
+            <span class="block text-[11px] tracking-[0.3em] uppercase text-[#727272]">Your Name</span>
+            <input
+                id="rqName"
+                type="text"
+                name="name"
+                autocomplete="name"
+                required
+                class="mt-2 w-full bg-transparent border-0 border-b border-black/40 focus:border-black focus:ring-0 text-[15px] py-2"
+            />
+            </label>
+
+            <!-- Phone -->
+            <label class="block text-left">
+            <span class="block text-[11px] tracking-[0.3em] uppercase text-[#727272]">Phone</span>
+            <input
+                id="rqPhone"
+                type="tel"
+                name="phone"
+                inputmode="tel"
+                autocomplete="tel"
+                required
+                class="mt-2 w-full bg-transparent border-0 border-b border-black/40 focus:border-black focus:ring-0 text-[15px] py-2"
+            />
+            </label>
+
+            <div class="pt-4">
+            <div id="rqPulse" class="relative mx-auto h-40 w-40">
+                <!-- waves -->
+                <span class="radar-wave"></span>
+                <span class="radar-wave delay-1"></span>
+                <span class="radar-wave delay-2"></span>
+
+                <!-- tombol -->
+                <button
+                id="rqSubmit"
+                type="submit"
+                class="absolute inset-0 flex items-center justify-center rounded-full bg-black/15 text-base font-montserrat font-semibold tracking-wide">
+                REQUEST
+                </button>
+            </div>
+            </div>
+
+        </form>
+
+        <p class="mt-6 text-sm leading-snug text-[#ACACAC]">
+            By sending your request, you're agreeing to our
+            <a href="/privacy-policy" class="underline">privacy policy</a>.<br>
+            We promise to keep your personal information safe and secure.
+        </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#2c2c2c] text-white z-40 h-[60vh]">
+        <div class="mx-auto max-w-[1280px] px-5 lg:px-8 py-8 lg:py-14">
+        <!-- Top actions -->
+        <div class="flex items-center justify-between gap-4">
+            <a href="#" target="_blank" class="inline-flex items-center gap-3 text-sm hover:opacity-80">
+            <span class="inline-grid place-items-center h-7 w-7 rounded-full border border-white/50 text-[11px]">PDF</span>
+            <span>Download Brochure</span>
+            </a>
+
+            <button id="btnBackTop" class="inline-flex items-center gap-3 text-sm hover:opacity-80">
+            <span class="hidden sm:inline">Back to Homepage</span>
+            <span class="inline-grid place-items-center h-7 w-7 rounded-full border border-white/50">
+                <!-- up arrow -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 19V5M5 12l7-7 7 7"/>
+                </svg>
+            </span>
+            </button>
+        </div>
+
+        <!-- divider -->
+        <hr class="mt-4 border-white/20">
+
+        <!-- Center block -->
+        <div class="text-center py-10 lg:py-14">
+            <!-- Logo -->
+            <div class="flex items-center justify-center">
+            <img src="/assets/Logo_Harsenland_White.png" alt="Harsen Land" class="h-10 md:h-12">
+            </div>
+
+            <!-- Phone -->
+            <a href="tel:+6287776533968"
+            class="mt-6 font-ivy block text-[28px] sm:text-[36px] lg:text-[48px] tracking-[0.14em] leading-tight hover:opacity-90 ">
+            +62 8777 6353 968
+            </a>
+
+            <p class="mt-3 text-[11px] tracking-[0.35em] uppercase text-white/70">
+            Sales Office Harsen Land
+            </p>
+
+            <div class="mt-6 text-[12px] tracking-[0.25em] uppercase text-white/80 space-y-1">
+            <p>Sentul, Bogor</p>
+            <p>Jawa Barat, Indonesia</p>
+            </div>
+        </div>
+
+        <!-- Bottom row -->
+        <div class="font-montserrat font-light tracking-wider text-xs flex flex-row justify-between">
+            <div class="flex flex-col  ">
+            <p>2025 © Harsen Land</p>
+            <p class="">Documentation</p>
+            </div>
+            <div class="flex flex-row gap-2">
+            <a href="https://www.instagram.com/nayaka.construction/" class="flex flex-row gap-2">
+            <img src="/assets/logo/Logo_Nayaka_Putih-05.png" class="h-7" alt="">
+            <div class="flex flex-col">
+                <p>NAYAKA</p>
+                <p>CONSTRUCTION</p>
+            </div>
+            </a>
+            </div>
+            <div class="">
+            <a href="" class="flex flex-row gap-2">
+            <img src="/assets/logo/Aether Logo_AetherWorks_Logogram_White.png" class="h-7" alt="">
+            <div class="flex flex-col">
+                <p>Website by</p>
+                <p class="">Aetherworks</p>
+            </div>
+            </a>
+            </div>
+        </div>
+        </div>
+    </footer>
+
+
+    <!-- Back to top (smooth) -->
+    <script>
+        document.getElementById('btnBackTop')?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+    <!-- Sidebar -->
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const openBtns = [document.getElementById('openSidebar'), document.getElementById('openSidebarMobile')];
+        const closeBtn = document.getElementById('closeSidebar');
+        function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('opacity-0','pointer-events-none');
+        overlay.classList.add('opacity-100');
+        }
+        function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('opacity-0','pointer-events-none');
+        overlay.classList.remove('opacity-100');
+        }
+        openBtns.forEach(btn => btn?.addEventListener('click', openSidebar));
+        closeBtn.addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+
+        go(index,false);
+        startAuto();
+    </script>
+
+    <!-- Request Page -->
+    <script>
+        // === CONFIG: ganti nomor WhatsApp tujuan di sini (tanpa +) ===
+        const WA_NUMBER = '6287776533968';
+
+        // small helpers
+        const onlyDigits = (s) => (s || '').replace(/[^0-9]/g, '');
+        function normalizeIndoPhone(raw) {
+        const d = onlyDigits(raw);
+        if (!d) return '';
+        if (d.startsWith('62')) return d;
+        if (d.startsWith('0'))   return '62' + d.slice(1);
+        return '62' + d; // fallback
+        }
+
+        // enable/disable button based on validity
+        (function initRequestForm(){
+        const form  = document.getElementById('requestForm');
+        const nameI = document.getElementById('rqName');
+        const phoneI= document.getElementById('rqPhone');
+        const btn   = document.getElementById('rqSubmit');
+
+        function updateState() {
+            const ok = nameI.value.trim().length >= 2 && onlyDigits(phoneI.value).length >= 8;
+            btn.disabled = !ok;
+        }
+        nameI.addEventListener('input', updateState);
+        phoneI.addEventListener('input', updateState);
+        updateState();
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = nameI.value.trim();
+            const phone = normalizeIndoPhone(phoneI.value);
+
+            if (!name || phone.length < 9) {
+            updateState();
+            return;
+            }
+
+            // === WhatsApp message ===
+            const msg = [
+            'Halo Harsen Land 👋',
+            'Saya ingin meminta penawaran/proposal.',
+            '',
+            `Nama: ${name}`,
+            `Telepon: ${phone}`,
+            'Sumber: Website Harsen Land'
+            ].join('\n');
+
+            const waURL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+            // simple click feedback
+            btn.classList.add('scale-95');
+            setTimeout(() => btn.classList.remove('scale-95'), 160);
+
+            // open WA (new tab)
+            window.open(waURL, '_blank');
+
+            // === (Optional) Email hook - nonaktif. Isi sendiri nanti:
+            // sendEmail({ name, phone });  // implementasikan sendiri
+        });
+        })();
+    </script>
+
+    <!-- Animasi Gelombang Request -->
+    <script>
+        (function initRequestForm(){
+        const form   = document.getElementById('requestForm');
+        const nameI  = document.getElementById('rqName');
+        const phoneI = document.getElementById('rqPhone');
+        const btn    = document.getElementById('rqSubmit');
+        const pulse  = document.getElementById('rqPulse');
+
+        const onlyDigits = (s) => (s || '').replace(/[^0-9]/g, '');
+        function normalizeIndoPhone(raw) {
+            const d = onlyDigits(raw);
+            if (!d) return '';
+            if (d.startsWith('62')) return d;
+            if (d.startsWith('0'))   return '62' + d.slice(1);
+            return '62' + d;
+        }
+
+        function updateState() {
+            const ok = nameI.value.trim().length >= 2 && onlyDigits(phoneI.value).length >= 8;
+            btn.disabled = !ok;
+            pulse.classList.toggle('radar-active', ok); // aktifkan gelombang
+        }
+
+        nameI.addEventListener('input', updateState);
+        phoneI.addEventListener('input', updateState);
+        updateState();
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = nameI.value.trim();
+            const phone = normalizeIndoPhone(phoneI.value);
+            if (!name || phone.length < 9) { updateState(); return; }
+
+            const msg = [
+            'Halo Harsen Land 👋',
+            'Saya ingin meminta penawaran/proposal.',
+            '',
+            `Nama: ${name}`,
+            `Telepon: ${phone}`,
+            'Sumber: Website Harsen Land'
+            ].join('\n');
+
+            const WA_NUMBER = '6287776533968'; // ganti nomor WA kamu
+            const waURL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+            // micro-feedback klik
+            btn.classList.add('scale-95'); setTimeout(()=>btn.classList.remove('scale-95'),160);
+
+            window.open(waURL, '_blank');
+        });
+        })();
+
+    </script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/73175b7b09.js" crossorigin="anonymous"></script>
+
+    <!-- Under Development Alert -->
+    <script>
+        const backdrop = document.getElementById('modalOverlay');
+        const trigger = document.getElementById('triggerImage');
+        const cancelBtn = document.getElementById('cancelBtn');
+
+
+        function openModal() {
+        backdrop.classList.remove('hidden');
+        document.documentElement.style.overflow = 'hidden';
+        }
+
+
+        function closeModal() {
+        backdrop.classList.add('hidden');
+        document.documentElement.style.overflow = '';
+        }
+
+
+        trigger.addEventListener('click', openModal);
+        cancelBtn.addEventListener('click', closeModal);
+
+
+        // Klik di luar card untuk menutup
+        backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closeModal();
+        });
+
+
+        // ESC untuk menutup
+        window.addEventListener('keydown', (e) => {
+        if (!backdrop.classList.contains('hidden') && e.key === 'Escape') closeModal();
+        });
+    </script>
+
+    </body>
+    </html>

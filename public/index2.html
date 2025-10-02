@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Residential</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* helper */
+    .fade-swap{transition:opacity .35s ease,transform .35s ease}
+  </style>
+</head>
+<body class="">
+
+
+
+
+<!-- ====== BAGIAN 1: LEFT sticky (gabung switcher + teks), RIGHT scroll ====== -->
+<div class="max-w-[1400px] mx-auto px-4 lg:px-6 pt-4 ">
+  <div class="flex items-start justify-center">
+    <!-- LEFT: satu kotak sticky -->
+    <aside class="w-3/4 lg:sticky top-1 self-start bg-white text-black">
+      <!-- Switcher Top (ikut sticky karena menyatu di kotak ini) -->
+      <div class="flex items-center justify-between gap-6 border-b border-black/15">
+        <div class="h-8 w-px bg-white"></div>
+        <button id="tabA-top" data-type="A" class="res-tab px-6 py-3 font-primaryMedium relative after:absolute after:inset-x-0 after:-bottom-[1px] after:h-[3px] after:bg-[#0e1b4d]">TIPE A</button>
+        <div class="h-8 w-px bg-black/20"></div>
+        <button id="tabB-top" data-type="B" class="res-tab px-6 py-3 text-black/50">TIPE B</button>
+        <div class="h-8 w-px bg-white"></div>
+      </div>
+
+      <!-- Panel teks/angka (tetap di bawah switcher & ikut sticky) -->
+      <div id="leftPanel" class="space-y-4 px-8 py-6 flex flex-col justify-start items-center align-middle font-primaryMedium">
+        <p class="text-[28px] md:text-[34px] leading-tight ">
+          <span class="count-anim" data-key="bedrooms">6</span><span class="text-black/80">-Bedrooms, </span>
+          <span class="count-anim" data-key="bathrooms">4</span><span class="text-black/80"> Bathrooms</span>
+        </p>
+        <div class="flex items-end gap-2">
+          <p class="text-[40px] md:text-[54px] font-semibold tracking-[0.06em]">
+            <span class="count-anim" data-key="gross">443,23</span>
+          </p>
+          <span class="pb-1 text-[14px] md:text-[16px]">m²</span>
+        </div>
+        <p class="text-sm max-w-sm leading-relaxed text-black/70">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent varius quam vitae pretium lobortis.
+        </p>
+
+        <!-- Tombol bundar besar -->
+        <div class="pt-2">
+          <button class="relative h-36 w-36 rounded-full bg-black/15 grid place-items-center text-[13px] font-semibold tracking-wide">
+            BOOK NOW
+            <span class="absolute inset-2 rounded-full border border-black/20"></span>
+            <span class="absolute inset-0 rounded-full border-2 border-black/10"></span>
+          </button>
+        </div>
+
+        <div class="flex items-center w-full justify-between pt-6">
+          <button class="h-10 w-10 rounded-full ring-1 ring-black/15 grid place-items-center" aria-label="Share">ʘ</button>
+          <a href="#" class="text-[13px] underline underline-offset-4">See More Options</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT: denah panjang yang scroll sendiri -->
+    <div id="plans" class="space-y-10 border-l border-black/15 w-full flex flex-col align-middle items-end">
+      <figure class="space-y-2">
+        <figcaption class="text-[13px] tracking-[0.35em] uppercase">1st Floor</figcaption>
+        <img id="plan1" src="/assets/png/Denah Lt. 1 Tipe 5.5.png"
+             class="w-[35rem] object-cover" alt="1st floor">
+      </figure>
+      <figure class="space-y-2">
+        <figcaption class="text-[13px] tracking-[0.35em] uppercase">2nd Floor</figcaption>
+        <img id="plan2" src="/assets/png/Denah Lt. 2 Tipe 5.5.png"
+             class="w-[35rem] object-cover" alt="2nd floor">
+      </figure>
+    </div>
+  </div>
+</div>
+
+<!-- ====== BAGIAN 2: Switcher kedua sticky + konten ====== -->
+<div id="specs" class="mt-16 border-t border-black/10 bg-white text-black">
+  <!-- Switcher Bawah (STICKY) -->
+  <div class="sticky top-0 z-20 bg-white border-b border-black/15">
+    <div class="max-w-[1200px] mx-auto px-4 lg:px-6">
+      <div class="grid grid-cols-2">
+        <button id="tabA-bottom" data-type="A"
+          class="res-tab px-6 py-4 text-left bg-[#0e1b4d] text-white font-primaryMedium">TIPE A</button>
+        <button id="tabB-bottom" data-type="B"
+          class="res-tab px-6 py-4 text-left bg-black/10 text-black/60">TIPE B</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Konten Bagian 2 (angka ringkas, tabel, harga, dll) -->
+  <div class="max-w-[1400px] mx-auto px-4 lg:px-6 py-10">
+      <h3 id="title2" class="text-center text-[28px] md:text-[36px] tracking-[0.16em] uppercase mb-8 fade-swap">Tipe A</h3>
+
+      <!-- 4 angka ringkas -->
+      <div id="numsRow" class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-10">
+        <div class="fade-swap">
+          <div class="text-4xl md:text-5xl font-semibold"><span class="count-anim" data-key="s_bedrooms">3</span></div>
+          <div class="text-[11px] tracking-[0.35em] uppercase text-black/60 mt-2">Kamar Tidur</div>
+        </div>
+        <div class="fade-swap">
+          <div class="text-4xl md:text-5xl font-semibold"><span class="count-anim" data-key="s_floors">2</span></div>
+          <div class="text-[11px] tracking-[0.35em] uppercase text-black/60 mt-2">Lantai</div>
+        </div>
+        <div class="fade-swap">
+          <div class="text-4xl md:text-5xl font-semibold">
+            <span class="count-anim" data-key="s_ext">59,03</span><span class="text-xl align-top">m²</span>
+          </div>
+          <div class="text-[11px] tracking-[0.35em] uppercase text-black/60 mt-2">Luas Eksterior</div>
+        </div>
+        <div class="fade-swap">
+          <div class="text-4xl md:text-5xl font-semibold">
+            <span class="count-anim" data-key="s_int">13,43</span><span class="text-xl align-top">m²</span>
+          </div>
+          <div class="text-[11px] tracking-[0.35em] uppercase text-black/60 mt-2">Luas Interior</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <!-- Tabel spesifikasi -->
+        <div class="space-y-4" id="specTable">
+          <SpecRow label="Halaman Depan"        value="12,77 m²"></SpecRow>
+          <SpecRow label="Kamar Tidur"          value="11,48 m²"></SpecRow>
+          <SpecRow label="Area Keluarga + Dapur" value="19,39 m²"></SpecRow>
+          <SpecRow label="Kamar Mandi + WC"     value="5,17 m²"></SpecRow>
+          <SpecRow label="Balkon"               value="13,43 m²"></SpecRow>
+          <div class="grid grid-cols-[1fr,auto] items-center bg-black/5 rounded px-4 py-3">
+            <span class="font-primaryMedium">Luas Keseluruhan</span>
+            <span class="font-primaryMedium">74,89 m²</span>
+          </div>
+        </div>
+
+        <!-- Harga + CTA -->
+        <div class="text-center lg:text-left">
+          <p class="text-xl md:text-2xl tracking-[.08em] mb-2">
+            Harga Rumah TIPE <span id="title2Inline">A</span><br/>Termasuk Pajak
+          </p>
+          <div class="text-[72px] md:text-[96px] leading-none font-semibold fade-swap">
+            <span id="priceNum">700</span>
+          </div>
+          <div class="tracking-[0.35em] uppercase -mt-1">Jutaan</div>
+
+          <button class="mt-6 w-full lg:w-auto px-8 py-3 rounded bg-[#0e1b4d] text-white hover:brightness-110">
+            BOOK NOW
+          </button>
+
+          <div class="mt-4 flex items-center gap-6 text-[14px]">
+            <a href="#" class="inline-flex items-center gap-2 underline underline-offset-4">
+              <span class="h-6 w-6 grid place-items-center rounded-full ring-1 ring-black/20 text-[11px]">PDF</span>
+              Detail Bangunan
+            </a>
+            <a href="#" class="inline-flex items-center gap-1 underline underline-offset-4">Unduh PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Helper row component ===== -->
+<script>
+  customElements.define('SpecRow', class extends HTMLElement {
+    connectedCallback(){
+      const label = this.getAttribute('label') || '';
+      const value = this.getAttribute('value') || '';
+      this.outerHTML =
+      `<div class="grid grid-cols-[1fr,auto] items-end gap-4">
+        <div class="border-b border-black/15 pb-2">${label}</div>
+        <div class="border-b border-black/15 pb-2 text-right">${value}</div>
+      </div>`;
+    }
+  });
+</script>
+
+<script>
+  /* ================== DATA ================== */
+  const DATA = {
+    A: {
+      header: { bedrooms: 6, bathrooms: 4, gross: '443,23' },
+      numbers: { bedrooms: 3, floors: 2, ext: '59,03', int: '13,43' },
+      price: 700,
+      plans: ['/assets/png/Denah Lt. 1 Tipe 5.5.png','/assets/png/Denah Lt. 2 Tipe 5.5.png'],
+      title: 'Tipe A',
+      specs: [
+        ['Halaman Depan','12,77 m²'],
+        ['Kamar Tidur','11,48 m²'],
+        ['Area Keluarga + Dapur','19,39 m²'],
+        ['Kamar Mandi + WC','5,17 m²'],
+        ['Balkon','13,43 m²'],
+        ['Luas Keseluruhan','74,89 m²', true]
+      ]
+    },
+    B: {
+      header: { bedrooms: 5, bathrooms: 3, gross: '389,12' },
+      numbers: { bedrooms: 4, floors: 3, ext: '72,40', int: '18,55' },
+      price: 900,
+      plans: ['/assets/png/Denah Lt. 1 Tipe 6.5.png','/assets/png/Denah Lt. 2 Tipe 6.5.png'],
+      title: 'Tipe B',
+      specs: [
+        ['Halaman Depan','10,12 m²'],
+        ['Kamar Tidur','12,33 m²'],
+        ['Area Keluarga + Dapur','21,04 m²'],
+        ['Kamar Mandi + WC','4,82 m²'],
+        ['Balkon','15,10 m²'],
+        ['Luas Keseluruhan','79,41 m²', true]
+      ]
+    }
+  };
+
+  let current = 'A';
+
+  // sinkronisasi style tab
+  function syncTabs(type){
+    const aTop = document.getElementById('tabA-top');
+    const bTop = document.getElementById('tabB-top');
+    aTop.className = 'res-tab px-6 py-3 ' + (type==='A'
+      ? 'font-primaryMedium relative after:absolute after:inset-x-0 after:-bottom-[1px] after:h-[3px] after:bg-[#0e1b4d]'
+      : 'text-black/50');
+    bTop.className = 'res-tab px-6 py-3 ' + (type==='B'
+      ? 'font-primaryMedium relative after:absolute after:inset-x-0 after:-bottom-[1px] after:h-[3px] after:bg-[#0e1b4d]'
+      : 'text-black/50');
+
+    const aBot = document.getElementById('tabA-bottom');
+    const bBot = document.getElementById('tabB-bottom');
+    aBot.className = 'res-tab px-6 py-4 text-left ' + (type==='A' ? 'bg-[#0e1b4d] text-white font-primaryMedium' : 'bg-black/10 text-black/60');
+    bBot.className = 'res-tab px-6 py-4 text-left ' + (type==='B' ? 'bg-[#0e1b4d] text-white font-primaryMedium' : 'bg-black/10 text-black/60');
+  }
+
+  function fadeSwapImage(img, src){
+    img.style.opacity = '0';
+    img.style.transform = 'translateY(6px)';
+    setTimeout(()=>{ img.src = src; img.onload = () => {
+      img.style.opacity = '1'; img.style.transform = 'translateY(0)'
+    }}, 160);
+  }
+
+  function countTo(el, target, asFloat=false){
+    const from = parseFloat(el.textContent.toString().replace(',','.')) || 0;
+    const tVal = parseFloat(String(target).replace(',','.'));
+    const dur  = 600;
+    const start= performance.now();
+    function step(now){
+      const k = Math.min(1,(now-start)/dur);
+      const v = from + (tVal-from)*(1-Math.pow(1-k,3)); // easeOutCubic
+      el.textContent = (asFloat ? v.toFixed(2) : Math.round(v)).toString().replace('.',',');
+      if (k<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function setNumbers(d){
+    // bagian 1 (atas)
+    document.querySelectorAll('[data-key="bedrooms"]').forEach(el=>countTo(el, d.header.bedrooms));
+    document.querySelectorAll('[data-key="bathrooms"]').forEach(el=>countTo(el, d.header.bathrooms));
+    document.querySelectorAll('[data-key="gross"]').forEach(el=>{
+      el.style.opacity='0'; setTimeout(()=>{ el.textContent = d.header.gross; el.style.opacity='1' },160);
+    });
+
+    // bagian 2 (angka 4 buah)
+    countTo(document.querySelector('[data-key="s_bedrooms"]'), d.numbers.bedrooms);
+    countTo(document.querySelector('[data-key="s_floors"]'),   d.numbers.floors);
+    const eext = document.querySelector('[data-key="s_ext"]');
+    const eint = document.querySelector('[data-key="s_int"]');
+    eext.style.opacity='0'; eint.style.opacity='0';
+    setTimeout(()=>{ eext.textContent=d.numbers.ext; eext.style.opacity='1';
+                     eint.textContent=d.numbers.int; eint.style.opacity='1'; },160);
+
+    // harga
+    countTo(document.getElementById('priceNum'), d.price);
+  }
+
+  function setSpecs(d){
+    const wrap = document.getElementById('specTable');
+    wrap.innerHTML = '';
+    d.specs.forEach(([label, value, highlight])=>{
+      if (highlight){
+        wrap.insertAdjacentHTML('beforeend',
+          `<div class="grid grid-cols-[1fr,auto] items-center bg-black/5 rounded px-4 py-3">
+            <span class="font-primaryMedium">${label}</span>
+            <span class="font-primaryMedium">${value}</span>
+          </div>`);
+      } else {
+        wrap.insertAdjacentHTML('beforeend',
+          `<div class="grid grid-cols-[1fr,auto] items-end gap-4">
+            <div class="border-b border-black/15 pb-2">${label}</div>
+            <div class="border-b border-black/15 pb-2 text-right">${value}</div>
+          </div>`);
+      }
+    });
+  }
+
+  function setType(type){
+    if (type===current) return;
+    current = type;
+    const d = DATA[type];
+    syncTabs(type);
+
+    // judul bagian 2
+    const title2 = document.getElementById('title2');
+    title2.style.opacity='0'; title2.style.transform='translateY(6px)';
+    setTimeout(()=>{ title2.textContent = d.title; title2.style.opacity='1'; title2.style.transform='translateY(0)' },160);
+    document.getElementById('title2Inline').textContent = type;
+
+    // gambar denah
+    fadeSwapImage(document.getElementById('plan1'), d.plans[0]);
+    fadeSwapImage(document.getElementById('plan2'), d.plans[1]);
+
+    // angka + spesifikasi
+    setNumbers(d);
+    setSpecs(d);
+  }
+
+  // Event pada semua tab
+  document.querySelectorAll('.res-tab').forEach(btn=>{
+    btn.addEventListener('click', ()=> setType(btn.dataset.type));
+  });
+
+  // Trigger pertama kali saat angka bagian 2 tampak
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        setNumbers(DATA[current]);
+        io.disconnect();
+      }
+    });
+  }, {threshold:.35});
+  io.observe(document.getElementById('numsRow'));
+
+  // init
+  syncTabs('A');
+</script>
+</body>
+</html>

@@ -31,6 +31,19 @@
   url('/assets/fonts/Microgramma-D-Extended-Medium.ttf') format("truetype");
 }
 
+@font-face{
+  font-family: "apparel";
+  src: local("apparel-bold"),
+  url('/assets/fonts/apparel-bold.otf') format("truetype");
+}
+
+@font-face{
+  font-family: "ivy";
+  font-style: normal;
+  font-display: auto;
+  src: url("/assets/fonts/Ivy-Presto-Headline-Light.ttf") format("truetype");
+}
+
 @theme {
-  --font-montserrat: "Montserrat", sans-serif; 
+  --font-montserrat: "Montserrat", sans-serif;
 }
