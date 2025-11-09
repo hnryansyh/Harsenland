@@ -6,7 +6,7 @@
 
 /* Tambahan custom class */
 .icon-circle-outline {
-@apply h-10 w-10 flex items-center justify-center rounded-full border border-white/60;
+@apply h-10 w-10 flex items-center justify-center rounded-full border border-black;
 }
 
 @layer utilities {

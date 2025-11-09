@@ -76,7 +76,7 @@
                     <img src="/assets/icon/hamburger.svg" class="w-4" alt="">
                 </button>
                 <a href="index.html">
-                    <img src="/assets/Logo_Harsenland_White.png" alt="Harsen Land" class="h-7" />
+                    <img src="/assets/Logo_Harsenland_Color.png" alt="Harsen Land" class="h-7 saturate-0" />
                 </a>
                 <a href="https://wa.me/6287776533968" target="_blank" rel="noopener" class="icon-circle-outline" aria-label="WhatsApp">
                     <img src="/assets/icon/call_1860152.svg" class="text-white w-5" alt="">
@@ -98,7 +98,7 @@
             </svg>
             </button>
         </div>
-        <nav class="relative space-y-8 text-3xl lg:text-6xl uppercase tracking-wider font-ivy ">
+        <nav class="relative space-y-8 text-4xl lg:text-6xl uppercase tracking-wider font-ivy ">
             <a href="index.html" class="block hover:opacity-80">Home</a>
             <a href="about.html" class="block hover:opacity-80">About Us</a>
             <a href="residential.html" class="block hover:opacity-80">Residential</a>
@@ -128,8 +128,18 @@
         </div>
     </aside>
 
-    <div class="h-screen">
-        <img src="/assets/comingsoon-01.jpg" class="object-cover" alt="">
+    <div id="heroFx" class="inset-0 h-screen">
+        <img src="/assets/image/3.png" alt="Residences" class="fixed inset-0 h-full w-full object-cover animate-heroZoomBlur -z-10" />
+        <div class="animate-fadeIn absolute inset-0 bg-black/50"></div>
+        <div id="whiteOverlay" class="absolute inset-0 bg-white animate-overlayFade pointer-events-none"></div>
+        <div class="relative z-10 h-full">
+            <div class="mx-auto max-w-[1400px] px-4 lg:px-6 pt-10 h-full flex items-center align-middle justify-center flex-col">
+                <h1 id="heroHeadline" class="mx-auto lg:mx-0 font-ivy mb-4 lg:mb-8 leading-tight text-center lg:max-w-5xl text-4xl lg:text-[90px] uppercase animate-textReveal">
+                    This page is currently under development.
+                </h1>
+                <p class="animate-textReveal uppercase lg:tracking-wider tracking-normal leading-tight text-[12px] lg:text-[27px] text-center">We apologize for the inconvenience and appreciate your patience.</p>
+            </div>
+        </div>
     </div>
 
     <a href="https://wa.me/6287776353968" class="fixed bottom-5 right-5 z-50 animate-slideUp">

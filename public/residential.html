@@ -93,7 +93,7 @@
                     <img src="/assets/icon/hamburger.svg" class="w-4" alt="">
                 </button>
                 <a href="index.html">
-                    <img src="/assets/Logo_Harsenland_White.png" alt="Harsen Land" class="h-7" />
+                    <img src="/assets/Logo_Harsenland_Color.png" alt="Harsen Land" class="h-7 saturate-0" />
                 </a>
                 <a href="https://wa.me/6287776533968" target="_blank" rel="noopener" class="icon-circle-outline" aria-label="WhatsApp">
                     <img src="/assets/icon/call_1860152.svg" class="text-white w-5" alt="">
@@ -115,7 +115,7 @@
             </svg>
             </button>
         </div>
-        <nav class="relative space-y-8 text-3xl lg:text-6xl uppercase tracking-wider font-ivy ">
+        <nav class="relative space-y-8 text-4xl lg:text-6xl uppercase tracking-wider font-ivy ">
             <a href="index.html" class="block hover:opacity-80">Home</a>
             <a href="about.html" class="block hover:opacity-80">About Us</a>
             <a href="residential.html" class="block hover:opacity-80">Residential</a>
@@ -151,9 +151,9 @@
 
     <!-- ====== BAGIAN 1: LEFT sticky (gabung switcher + teks), RIGHT scroll ====== -->
     <div class="max-w-[1400px] mx-auto">
-        <div class="flex items-start justify-center">
+        <div class="flex flex-col md:flex-row items-center md:items-start justify-center">
             <!-- LEFT: satu kotak sticky -->
-            <aside class="w-3/4 lg:sticky top-24 self-start bg-white">
+            <aside class="w-full md:w-3/4 lg:sticky top-24 self-start bg-white">
             <!-- Switcher Top (ikut sticky karena menyatu di kotak ini) -->
             <div class="flex items-center justify-between gap-6 border-b border-black/15">
                 <div class="h-8 w-px bg-white"></div>
@@ -211,7 +211,7 @@
                     </div>
                 </div>
 
-                <p class="text-xl font-montserrat max-w-md text-center leading-relaxed text-black/70 pt-5">
+                <p class="text-base md:text-xl font-montserrat max-w-md text-center leading-relaxed text-black/70 pt-5">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent varius quam vitae pretium lobortis.
                 </p>
 
@@ -235,7 +235,7 @@
             </aside>
 
             <!-- RIGHT: denah panjang yang scroll sendiri -->
-            <div id="plans" class="space-y-10 border-l py-8 border-black/15 w-full flex flex-col align-middle items-end">
+            <div id="plans" class="space-y-10 border-l-0 md:border-l py-8 border-black/15 w-72 md:w-full flex flex-col align-middle items-end">
                 <figure class="space-y-2">
                     <figcaption class="text-xl text-center font-bold tracking-wider uppercase">1<span class="text-base">st</span> Floor</figcaption>
                     <img id="plan1" src="/assets/png/Denah Lt. 1 Tipe 5.5.png"
@@ -614,8 +614,8 @@
         syncTabs('A');
     </script>
 
-    <!-- FACILITIES – marquee auto scroll -->
-    <section id="facilities-marquee" class="bg-[#f7f7f7] text-brand-navy py-40">
+    <!-- Interior -->
+    <section id="facilities-marquee" class="bg-[#f7f7f7] text-black py-10 md:py-40">
         <div class="mx-auto">
             <h2 class="text-center font-ivy text-[28px] md:text-7xl uppercase mb-8 md:mb-10">
             INTERIOR DESIGN
@@ -713,23 +713,24 @@
     </script>
 
 
-    <div class="h-full w-full bg-white flex justify-center py-4">
-        <img id="triggerImage" src="/assets/contoh-maps.png" class="w-full" alt="">
-        <div id="modalOverlay" class="absolute flex items-center justify-center w-full h-full">
+    <!-- DENAH LOKASI -->
+    <div class="h-full w-full bg-white flex justify-center py-8 z-40">
+        <img id="triggerImage" src="/assets/contoh-maps.png" class="w-full saturate-0" alt="">
+        <div id="modalOverlay" class="absolute flex items-center justify-center w-full h-fit md:h-full">
         <div id="modalCard" class="w-full max-w-lg rounded-2xl bg-white p-16 shadow-lg">
-            <p class=" font-ivy tracking-normal text-2xl text-center text-black font-semibold">DENAH LOKASI <br> UNDER DEVELOPMENT</p>
+            <p class="tracking-normal text-2xl text-center text-black font-semibold">DENAH LOKASI <br> UNDER DEVELOPMENT</p>
         </div>
         </div>
     </div>
 
-    <!-- REQUEST / CONTACT FORM -->
-    <section id="request" class="bg-[#f7f7f7] text-brand-navy py-14 lg:py-20 z-40 h-[90vh]  flex flex-col justify-center items-center">
+     <!-- REQUEST / CONTACT FORM -->
+    <section id="request" class="bg-[#f7f7f7] text-[#2c2c2c] py-14 lg:py-20 z-40 h-[90vh]  flex flex-col justify-center items-center">
         <div class=" px-6 text-center">
         <p class="text-base tracking-wide uppercase font-montserrat font-medium text-[#727272] ">
             Our specialist will contact you as soon as possible.
         </p>
 
-        <h3 class="mt-3 text-[28px] md:text-[36px] lg:text-7xl leading-tight tracking-[0.12em] uppercase font-ivy ">
+        <h3 class="mt-3 text-[35px] md:text-[36px] lg:text-7xl leading-tight tracking-[0.12em] uppercase font-ivy ">
             <span class="block">To Your</span>
             <span class="block">Future Home</span>
         </h3>
@@ -790,8 +791,8 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-[#2c2c2c] text-white z-40 h-[60vh]">
-        <div class="mx-auto max-w-[1280px] px-5 lg:px-8 py-8 lg:py-14">
+    <footer class="bg-[#2c2c2c] text-white z-40 h-full flex flex-col p-8 gap-10">
+        <div class="mx-auto max-w-[1280px] w-full">
         <!-- Top actions -->
         <div class="flex items-center justify-between gap-4">
             <a href="#" target="_blank" class="inline-flex items-center gap-3 text-sm hover:opacity-80">
@@ -812,7 +813,8 @@
 
         <!-- divider -->
         <hr class="mt-4 border-white/20">
-
+        </div>
+        <div class="mx-auto max-w-[1280px]">
         <!-- Center block -->
         <div class="text-center py-10 lg:py-14">
             <!-- Logo -->
@@ -835,16 +837,17 @@
             <p>Jawa Barat, Indonesia</p>
             </div>
         </div>
-
+        </div>
+        <div class="mx-auto max-w-[1280px] w-full">
         <!-- Bottom row -->
-        <div class="font-montserrat font-light tracking-wider text-xs flex flex-row justify-between">
+        <div class="font-montserrat font-light tracking-wider text-[0.5rem] md:text-xs flex flex-row justify-between">
             <div class="flex flex-col  ">
             <p>2025 © Harsen Land</p>
             <p class="">Documentation</p>
             </div>
             <div class="flex flex-row gap-2">
             <a href="https://www.instagram.com/nayaka.construction/" class="flex flex-row gap-2">
-            <img src="/assets/logo/Logo_Nayaka_Putih-05.png" class="h-7" alt="">
+            <img src="/assets/logo/Logo_Nayaka_Putih-05.png" class="h-5 md:h-7" alt="">
             <div class="flex flex-col">
                 <p>NAYAKA</p>
                 <p>CONSTRUCTION</p>
@@ -853,7 +856,7 @@
             </div>
             <div class="">
             <a href="" class="flex flex-row gap-2">
-            <img src="/assets/logo/Aether Logo_AetherWorks_Logogram_White.png" class="h-7" alt="">
+            <img src="/assets/logo/Aether Logo_AetherWorks_Logogram_White.png" class="h-5 md:h-7" alt="">
             <div class="flex flex-col">
                 <p>Website by</p>
                 <p class="">Aetherworks</p>
